@@ -1,7 +1,7 @@
 # Личный проект «Кексобукинг» [![Build status][travis-image]][travis-url]
 
 * Студент: [Антон Толстенко](https://up.htmlacademy.ru/javascript/17/user/574925).
-* Наставник: `Неизвестно`.
+* Наставник: `Евгений Гусев`.
 
 ---
 
