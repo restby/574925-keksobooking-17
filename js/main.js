@@ -34,42 +34,89 @@
     Отрисуйте сгенерированные DOM-элементы в блок .map__pins. Для вставки элементов используйте DocumentFragment.
     */
 
-// for (var i = 1; i < 9; i++) {
-//   var userNumber = i;
-//   console.log(userNumber);
-//   var imgSrc = 'img/avatars/user' + '0' + userNumber + '.png';
-//   console.log(imgSrc);
-// }
+// var mock = [
+//   {
+//     "author": {
+//       "avatar": 'строка, адрес изображения вида img/avatars/user{{xx}}.png, где {{xx}} это число от 1 до 8 с ведущим нулём. Например, 01, 02 и т. д. Адреса изображений не повторяются'
+//   },
+//     "offer": {
+//       "type": 'строка с одним из четырёх фиксированных значений: palace, flat, house или bungalo'
+//     },
 
+//     "location": {
+//       "x": 'случайное число, координата x метки на карте.Значение ограничено размерами блока, в котором перетаскивается метка.',
+//       "y": 'случайное число, координата y метки на карте от 130 до 630.'
+//     }
+//   }
+// ];
 
-// var offerArray = ['palace', 'flat', 'house', 'bungalo'];
-// function arrayRandElement(arr) {
-//   var randElement = Math.floor(Math.random() * arr.length);
-//   return arr[randElement];
-// }
-// for (var i = 0; i < offerArray.length; i++) {
-//   var offerStr = arrayRandElement(offerArray);
-//   console.log(offerStr);
-// }
-
-
-var mock = [
-  {
-    "author": {
-      "avatar": 'строка, адрес изображения вида img/avatars/user{{xx}}.png, где {{xx}} это число от 1 до 8 с ведущим нулём. Например, 01, 02 и т. д. Адреса изображений не повторяются'
-  },
-    "offer": {
-      "type": 'строка с одним из четырёх фиксированных значений: palace, flat, house или bungalo'
-    },
-
-    "location": {
-      "x": 'случайное число, координата x метки на карте.Значение ограничено размерами блока, в котором перетаскивается метка.',
-      "y": 'случайное число, координата y метки на карте от 130 до 630.'
-    }
-  }
-];
-
-// console.log(mock[0].author.avatar);
-
+//1) открываем блок карты ".map"
 var map = document.querySelector('.map');
 map.classList.remove('map--faded');
+
+//2) author.avatar - цикл, который выводит строку для адреса изображения с подставленным номером от 1 до 8
+for (var i = 1; i < 9; i++) {
+  var imgSrc = 'img/avatars/user' + '0' + i + '.png';
+  console.log(imgSrc);
+}
+//3) offer - 
+// массив для offer 
+var offerArray = ['palace', 'flat', 'house', 'bungalo'];
+// функция вывода случайного элемента из массива
+function arrayRandElement(arr) {
+  var randElement = Math.floor(Math.random() * arr.length);
+  return arr[randElement];
+}
+// цикл вывода элемента массива 
+for (var i = 0; i < offerArray.length; i++) {
+  console.log(arrayRandElement(offerArray));
+}
+
+//4) location - функция генерации случайного числа для координаты
+function randomInterger(min, max) {
+  var rand = Math.round(min - 0.5 + Math.random() * (max - min + 1));
+  return rand;
+}
+
+//4-1) location X) - генерация случайной координаты Х в пределах блока карты ".map"
+var mapWidth = randomInterger(0, map.offsetWidth);
+console.log(mapWidth);
+
+//4-2) location Y) - генерация случайной координаты У в промежутке от 130 до 630
+var mapHeight = randomInterger(130, 630);
+console.log(mapHeight);
+
+/*________________________________________________________*/
+// var exampleArray = [];
+
+// var generateArray = function() {
+//   for (var i = 1; i < 2; i++) {
+//     var imgSrc = 'img/avatars/user' + '0' + i + '.png';
+//     console.log(imgSrc);
+//   }
+
+//   var offerArray = ['palace', 'flat'];  
+//   for (var i = 0; i < offerArray.length; i++) {
+//     function arrayRandElement(arr) {
+//       var randElement = Math.floor(Math.random() * arr.length);
+//       return arr[randElement];
+//     }
+//     console.log(arrayRandElement(offerArray));
+//   }
+
+//   function randomInterger(min, max) {
+//     var rand = Math.round(min - 0.5 + Math.random() * (max - min + 1));
+//     return rand;
+//   }
+//   var mapWidth = randomInterger(0, map.offsetWidth);
+//   console.log(mapWidth);
+//   var mapHeight = randomInterger(130, 630);
+//   console.log(mapHeight);
+// }
+
+// for (var i = 0; i < 2; i++) {
+//   var elementObj = new generateArray();
+//   exampleArray.push(elementObj);
+// }
+// console.dir(exampleArray);
+/*________________________________________________________*/
