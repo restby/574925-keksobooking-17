@@ -1,37 +1,3 @@
-/*
-Задача
-
-В файле main.js:
-
-    Создайте массив, состоящий из 8 сгенерированных JS объектов, которые будут описывать похожие объявления неподалёку. Структура объектов должна быть следующей:
-
-    {
-      "author": {
-        "avatar": строка, адрес изображения вида img/avatars/user{{xx}}.png, где {{xx}} это число от 1 до 8 с ведущим нулём. Например, 01, 02 и т. д. Адреса изображений не повторяются
-      },
-      "offer": {
-        "type": строка с одним из четырёх фиксированных значений: palace, flat, house или bungalo
-      },
-
-      "location": {
-        "x": случайное число, координата x метки на карте. Значение ограничено размерами блока, в котором перетаскивается метка.
-        "y": случайное число, координата y метки на карте от 130 до 630.
-      }
-    }
-
-    На основе данных, созданных в первом пункте, создайте DOM-элементы, соответствующие меткам на карте, и заполните их данными из массива. Итоговую разметку метки .map__pin можно взять из шаблона #pin.
-        У метки должны быть следующие данные:
-        Координаты: style="left: {{location.x}}px; top: {{location.y}}px;"
-        src="{{author.avatar}}"
-        alt="{{заголовок объявления}}"
-
-        Обратите внимание. Координаты X и Y, которые вы вставите в разметку, это не координаты левого верхнего угла блока метки, а координаты, на которые указывает метка своим острым концом. Чтобы найти эту координату нужно учесть размеры элемента с меткой.
-
-    Отрисуйте сгенерированные DOM-элементы в блок .map__pins. Для вставки элементов используйте DocumentFragment.
-    */
-
-
-
 //1) открываем блок карты ".map"
 var map = document.querySelector('.map');
 map.classList.remove('map--faded');
@@ -102,6 +68,14 @@ console.log(mapHeight);
 // }
 // console.dir(exampleArray);
 /*________________________________________________________*/
+// console.log(mock[0].location.x);
+// console.log(mock[0].location.y);
+// for (var i = 0; i < mock.length; i++) {
+//   console.log(mock[i]);
+// }
+// var mapPinImg = document.querySelector('#pin').content.querySelector('.map__pin').querySelector('img');
+// mapPinImg.setAttribute('src', mock[0].author.avatar);
+// console.log(mapPinImg);
 var mock = [
   {
     "author": {
@@ -112,10 +86,82 @@ var mock = [
     },
 
     "location": {
-      "x": 1000,
-      "y": 200
+      "x": 1100,
+      "y": 300
+    }
+  },
+  {
+    "author": {
+      "avatar": 'img/avatars/user02.png'
+    },
+    "offer": {
+      "type": 'flat'
+    },
+
+    "location": {
+      "x": 1200,
+      "y": 400
+    }
+  },
+  {
+    "author": {
+      "avatar": 'img/avatars/user03.png'
+    },
+    "offer": {
+      "type": 'house'
+    },
+
+    "location": {
+      "x": 1300,
+      "y": 500
     }
   }
 ];
-var mapPin = document.querySelector('#pin');
-console.log(mapPin);
+var exampleMock = [];
+// 
+// находим блок куда будут вставляться данные
+var mapPinWrapper = document.querySelector('.map__pins');
+
+// находим шаблон
+var mapPin = document.querySelector('#pin').content.querySelector('.map__pin');
+
+// создаем контейнер
+var fragment = document.createDocumentFragment();
+
+
+
+// функция конструктор для генерации объекта
+function GenerationMapObj(location, author, offer) {
+  this.location = location;
+  this.author = author;
+  this.offer = offer;
+}
+
+// создаем функцию, которая в содержимое шаблона добавляет данные из массива
+var renderPin = function (_arr) {
+  var mapPinElement = mapPin.cloneNode(true);
+  mapPinElement.style.left = mock[0].location.x + px; top = mock[0].location.y + px;
+  mapPinElement.querySelector('img').setAttribute('src', mock[0].author.avatar);
+  mapPinElement.querySelector('img').setAttribute('alt', mock[0].offer.type);
+  return mapPinElement;
+};
+
+for (var i = 0; i < mock.length; i++) {
+  var mapPinObj = new GenerationMapObj();
+  exampleMock.push(mapPinObj);
+}
+
+
+// function GenerationMapObj(author, offer, location) {
+//   this.author = author;
+//   this.offer = offer;
+//   this.location = location;
+// }
+
+// var authorObj = {"avatar": 'img/avatars/user01.png'};
+// var offerObj = {"type": 'bungalo'};
+// var locationObj = {"x": 1100,
+//                 "y": 300};
+
+// var mapPinObj = new GenerationMapObj(authorObj, offerObj, locationObj);
+// console.log(mapPinObj);
