@@ -19,10 +19,6 @@
       }
     }
 
-    У блока .map уберите класс .map--faded.
-
-    Это временное решение, этот класс переключает карту из неактивного состояния в активное. В последующих заданиях, в соответствии с ТЗ вы будете переключать режимы страницы: неактивный, в котором карта и форма заблокированы и активный режим, в котором производится ввод данных и просмотр похожих объявлений. Сейчас для тестирования функции генерации похожих объявлений мы временно сымитируем активный режим, а в последующих разделах запрограммируем его полностью.
-
     На основе данных, созданных в первом пункте, создайте DOM-элементы, соответствующие меткам на карте, и заполните их данными из массива. Итоговую разметку метки .map__pin можно взять из шаблона #pin.
         У метки должны быть следующие данные:
         Координаты: style="left: {{location.x}}px; top: {{location.y}}px;"
@@ -34,21 +30,7 @@
     Отрисуйте сгенерированные DOM-элементы в блок .map__pins. Для вставки элементов используйте DocumentFragment.
     */
 
-// var mock = [
-//   {
-//     "author": {
-//       "avatar": 'строка, адрес изображения вида img/avatars/user{{xx}}.png, где {{xx}} это число от 1 до 8 с ведущим нулём. Например, 01, 02 и т. д. Адреса изображений не повторяются'
-//   },
-//     "offer": {
-//       "type": 'строка с одним из четырёх фиксированных значений: palace, flat, house или bungalo'
-//     },
 
-//     "location": {
-//       "x": 'случайное число, координата x метки на карте.Значение ограничено размерами блока, в котором перетаскивается метка.',
-//       "y": 'случайное число, координата y метки на карте от 130 до 630.'
-//     }
-//   }
-// ];
 
 //1) открываем блок карты ".map"
 var map = document.querySelector('.map');
@@ -59,15 +41,15 @@ for (var i = 1; i < 9; i++) {
   var imgSrc = 'img/avatars/user' + '0' + i + '.png';
   console.log(imgSrc);
 }
-//3) offer - 
-// массив для offer 
+//3) offer -
+// массив для offer
 var offerArray = ['palace', 'flat', 'house', 'bungalo'];
 // функция вывода случайного элемента из массива
 function arrayRandElement(arr) {
   var randElement = Math.floor(Math.random() * arr.length);
   return arr[randElement];
 }
-// цикл вывода элемента массива 
+// цикл вывода элемента массива
 for (var i = 0; i < offerArray.length; i++) {
   console.log(arrayRandElement(offerArray));
 }
@@ -95,7 +77,7 @@ console.log(mapHeight);
 //     console.log(imgSrc);
 //   }
 
-//   var offerArray = ['palace', 'flat'];  
+//   var offerArray = ['palace', 'flat'];
 //   for (var i = 0; i < offerArray.length; i++) {
 //     function arrayRandElement(arr) {
 //       var randElement = Math.floor(Math.random() * arr.length);
@@ -120,3 +102,20 @@ console.log(mapHeight);
 // }
 // console.dir(exampleArray);
 /*________________________________________________________*/
+var mock = [
+  {
+    "author": {
+      "avatar": 'img/avatars/user01.png'
+    },
+    "offer": {
+      "type": 'bungalo'
+    },
+
+    "location": {
+      "x": 1000,
+      "y": 200
+    }
+  }
+];
+var mapPin = document.querySelector('#pin');
+console.log(mapPin);
