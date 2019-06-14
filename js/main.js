@@ -37,6 +37,19 @@ for (var i = 0; i < 9; i++) {
 }
 
 // !!!!!!!!!!!!!!! НУЖНО ЗАПУШИТЬ ЭТИ ДАННЫЕ В МАССИВ "МОК"!!!!!!!
+var exampleMock = [];
+var obj = {};
+
+function GenerationAuthorObj(avatar) {
+  this.author = {
+    avatar: avatar
+  };
+}
+for (var i = 1; i < 9; i++) {
+  var imgSrc = 'img/avatars/user' + '0' + i + '.png';
+  var mapPinObj = new GenerationAuthorObj(imgSrc); 
+}
+obj.author = mapPinObj;
 
 
 
