@@ -2,7 +2,45 @@
 var map = document.querySelector('.map');
 map.classList.remove('map--faded');
 
-// 3 ГЕНЕРАЦИЕЯ DOM ЭЛЕМЕНТОВ И ПРИСВОЕНИЕМ ИМ ДАННЫХ ИЗ МАССИВА И ВНЕДРЕНИЕ ИХ В ВЕРСТКУ
+
+// 1.1 ГЕНЕРАЦИЯ ДАННЫХ ДЛЯ МАССИВА "МОК"
+var exampleMock = [];
+//1-1) author.avatar - цикл, который выводит строку для адреса изображения с подставленным номером от 1 до 8
+for (var i = 0; i < 9; i++) {
+  var imgSrc = 'img/avatars/user' + '0' + i + '.png';
+  exampleMock.push(imgSrc);
+}
+
+//1-2) offer -
+// массив для offer
+var offerArray = ['palace', 'flat', 'house', 'bungalo'];
+// функция вывода случайного элемента из массива
+function arrayRandElement(arr) {
+  var randElement = Math.floor(Math.random() * arr.length);
+  return arr[randElement];
+}
+for (var i = 0; i < offerArray.length; i++) {
+  var offerElement = arrayRandElement(offerArray);
+  exampleMock.push(offerElement);
+}
+
+//1-3) location - функция генерации случайного числа для координаты
+for (var i = 0; i < 9; i++) {
+  function randomInterger(min, max) {
+    var rand = Math.round(min - 0.5 + Math.random() * (max - min + 1));
+    return rand;
+  }
+  var mapWidth = randomInterger(0, map.offsetWidth);
+  var mapHeight = randomInterger(130, 630);
+  exampleMock.push(mapWidth);
+  exampleMock.push(mapHeight);
+}
+
+// !!!!!!!!!!!!!!! НУЖНО ЗАПУШИТЬ ЭТИ ДАННЫЕ В МАССИВ "МОК"!!!!!!!
+
+
+
+// !!!!!!!!!!!!!!! НУЖНО ЗАПУШИТЬ ЭТИ ДАННЫЕ В МАССИВ "МОК"!!!!!!!
 var mock = [
   {
     "author": {
@@ -44,6 +82,30 @@ var mock = [
     }
   }
 ];
+// 2 ГЕНЕРАЦИЯ ОБЪЕКТА МЕТКИ С ПРИМЕНЕНИМ ДАННЫХ ИЗ МАССИВА "МОК"
+// функция конструктор для генерации объекта - метки (объект объектов)
+function GenerationMapPin(avatar, type, locationX, locationY) {
+  this.author = {
+    avatar: avatar
+  };
+  this.offer = {
+    type: type
+  };
+  this.location = {
+    x: locationX,
+    y: locationY
+  };
+}
+// цикл запускающий генерацию объекта - метки, который берет данные из массива мок и зависит от длинны этого массива
+for (var i = 0; i < mock.length; i++) {
+  var mapPinObj = new GenerationMapPin(mock[0].author.avatar, mock[0].offer.type, mock[0].location.x, mock[0].location.y);
+  exampleMock.push(mapPinObj);
+  // console.log(exampleMock[i]);
+}
+
+
+// 3 ГЕНЕРАЦИЕЯ DOM ЭЛЕМЕНТОВ И ПРИСВОЕНИЕМ ИМ ДАННЫХ ИЗ МАССИВА И ВНЕДРЕНИЕ ИХ В ВЕРСТКУ
+
 
 //3-1 находим блок куда будут вставляться данные
 var mapPins = document.querySelector('.map__pins');
@@ -73,67 +135,6 @@ for (var i = 0; i < mock.length; i++) {
 mapPins.appendChild(fragment);
 
 
-
-/**!!!!!!!!!!!!!!!___________________!!!!!!!!!!!!!!!!!!!!!!!! */
-
-
-// 1.1 ГЕНЕРАЦИЯ ДАННЫХ ДЛЯ МАССИВА "МОК"
-//1-1) author.avatar - цикл, который выводит строку для адреса изображения с подставленным номером от 1 до 8
-for (var i = 1; i < 9; i++) {
-  var imgSrc = 'img/avatars/user' + '0' + i + '.png';
-  // console.log(imgSrc);
-}
-//1-2) offer -
-// массив для offer
-var offerArray = ['palace', 'flat', 'house', 'bungalo'];
-// функция вывода случайного элемента из массива
-function arrayRandElement(arr) {
-  var randElement = Math.floor(Math.random() * arr.length);
-  return arr[randElement];
-}
-// цикл вывода элемента массива
-for (var i = 0; i < offerArray.length; i++) {
-  // console.log(arrayRandElement(offerArray));
-}
-//1-3) location - функция генерации случайного числа для координаты
-function randomInterger(min, max) {
-  var rand = Math.round(min - 0.5 + Math.random() * (max - min + 1));
-  return rand;
-}
-// location X) - генерация случайной координаты Х в пределах блока карты ".map"
-var mapWidth = randomInterger(0, map.offsetWidth);
-// console.log(mapWidth);
-// location Y) - генерация случайной координаты У в промежутке от 130 до 630
-var mapHeight = randomInterger(130, 630);
-// console.log(mapHeight);
-
-
-
-// !!!!!!!!!!!!!!! НУЖНО ЗАПУШИТЬ ЭТИ ДАННЫЕ В МАССИВ "МОК"!!!!!!!
-
-
-
-// 2 ГЕНЕРАЦИЯ ОБЪЕКТА МЕТКИ С ПРИМЕНЕНИМ ДАННЫХ ИЗ МАССИВА "МОК"
-var exampleMock = [];
-// функция конструктор для генерации объекта - метки (объект объектов)
-function GenerationMapPin(avatar, type, locationX, locationY) {
-  this.author = {
-    avatar: avatar
-  };
-  this.offer = {
-    type: type
-  };
-  this.location = {
-    x: locationX,
-    y: locationY
-  };
-}
-// цикл запускающий генерацию объекта - метки, который берет данные из массива мок и зависит от длинны этого массива
-for (var i = 0; i < mock.length; i++) {
-  var mapPinObj = new GenerationMapPin(mock[0].author.avatar, mock[0].offer.type, mock[0].location.x, mock[0].location.y);
-  exampleMock.push(mapPinObj);
-  console.log(exampleMock[i]);
-}
 
 
 
