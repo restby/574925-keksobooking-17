@@ -40,7 +40,7 @@ for (var i = 0; i < countOfObject.length; i++) {
 
 // 3 ГЕНЕРАЦИЕЯ DOM ЭЛЕМЕНТОВ И ПРИСВОЕНИЕМ ИМ ДАННЫХ ИЗ МАССИВА И ВНЕДРЕНИЕ ИХ В ВЕРСТКУ
 // 3-1 находим блок куда будут вставляться данные
-var mapPins = document.querySelector('.map__pins');
+// var mapPins = document.querySelector('.map__pins');
 
 // 3-2 находим шаблон
 var mapPinTemplate = document.querySelector('#pin').content.querySelector('.map__pin');
@@ -48,10 +48,10 @@ var mapPinTemplate = document.querySelector('#pin').content.querySelector('.map_
 // 3-3 функция которая вставляет значения из массива мок в шаблон
 var addData = function (arr) {
   var mapPinElement = mapPinTemplate.cloneNode(true);
-  mapPinElement.querySelector('img').setAttribute('src', arr[j].author.avatar);
-  mapPinElement.querySelector('img').setAttribute('alt', arr[j].offer.type);
-  mapPinElement.style.left = arr[j].location.x + 'px';
-  mapPinElement.style.top = arr[j].location.y + 'px';
+  mapPinElement.querySelector('img').setAttribute('src', _arr.author.avatar);
+  mapPinElement.querySelector('img').setAttribute('alt', _arr.offer.type);
+  mapPinElement.style.left = _arr.location.x + 'px';
+  mapPinElement.style.top = _arr.location.y + 'px';
   return mapPinElement;
 };
 
@@ -60,47 +60,47 @@ var fragment = document.createDocumentFragment();
 
 // 3-5 цикл запускающий функцию(которая вставляет значения) зависящий от длинны массива мок
 for (var j = 0; j < mock.length; j++) {
-  fragment.appendChild(addData(mock));
+  fragment.appendChild(addData(mock[j]));
 }
 
 // 3-6 вставляем данные в блок из контейнера
 // mapPins.appendChild(fragment);
-/**/
-/**/
-/**/
+
+
 // находим форму '.ad-form'
-var AdForm = document.querySelector('.ad-form');
-
-// находим форму '.map__filters'
-var mapFiltersForm = document.querySelector('.map__filters');
-
-// цепляем форме '.map__filters' атрибут disabled
-mapFiltersForm.setAttribute('disabled', '');
-
-// находим все теги fieldset в форме
-var fieldsetArr = AdForm.querySelectorAll('fieldset');
-
-// находим все теги select в форме
-var selectArr = mapFiltersForm.querySelectorAll('select');
-
-// цепляем всем тегам fieldset в форме атрибут disabled через уикл перебора коллекции
-for (var a = 0; a < fieldsetArr.length; a++) {
-  fieldsetArr[a].setAttribute('disabled', '');
-}
-
-// цепляем всем тегам select в форме атрибут disabled через уикл перебора коллекции
-for (var b = 0; b < selectArr.length; b++) {
-  selectArr[b].setAttribute('disabled', '');
-}
-
-// var setAttributeDisabled = function (arr) {
-//   for (var k = 0; k < arr.length; k++) {
-//     arr[k].removeAttribute('disabled', '');
-//   }
-// };
-
-// находим элемент '.map__pin--main' и по клику отменяем действия по добавлению атрибута disabled к другим элементам
-var mainMapPin = document.querySelector('.map__pin--main');
-mainMapPin.addEventListener('click', function () {
-  mapFiltersForm.removeAttribute('disabled');
+var adForm = document.querySelector('.ad-form');
+// находим все элементы 'fieldset'
+var fieldsetArr = document.querySelectorAll('fieldset');
+// находим все элементы 'select'
+var selectArr = document.querySelectorAll('select');
+// создаем функцию, которая будет перебирать массив / коллекцию и каждому элементу добавлять атрибут 'disabled'
+var setAttributeDisabled = function (arr) {
+  for (var k = 0; k < arr.length; k++) {
+    arr[k].setAttribute('disabled', '');
+  }
+};
+// создаем функцию, которая будет перебирать массив / коллекцию и у каждого элемента удалять атрибут 'disabled'
+var removeAttributeDisabled = function (arr) {
+  for (var k = 0; k < arr.length; k++) {
+    arr[k].removeAttribute('disabled', '');
+  }
+};
+// добавлят атрибут 'disabled' всем элементам 'fieldset'
+setAttributeDisabled(fieldsetArr);
+// добавлят атрибут 'disabled' всем элементам 'select'
+setAttributeDisabled(selectArr);
+// находим элемент '.map__pin--main'
+var mapPinMain = document.querySelector('.map__pin--main');
+// находим элемент '#address'
+var inputAddress = adForm.querySelector('#address');
+// берем значения у '.map__pin--main' и формируем текст
+var mapPinMainPosition = mapPinMain.offsetLeft + ', ' + mapPinMain.offsetTop;
+// устанавливаем у '#address' значение value от mapPinMain
+inputAddress.setAttribute('value', mapPinMainPosition);
+// вешаем обработчик, который делает активной форму, карту и вызывает функции удаляющие атрибут 'disabled' у всех элементам 'fieldset' и 'select'
+mapPinMain.addEventListener('click', function () {
+  removeAttributeDisabled(fieldsetArr);
+  removeAttributeDisabled(selectArr);
+  map.classList.remove('map--faded');
+  adForm.classList.remove('ad-form--disabled');
 });
