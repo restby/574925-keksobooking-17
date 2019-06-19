@@ -48,10 +48,10 @@ var mapPinTemplate = document.querySelector('#pin').content.querySelector('.map_
 // 3-3 функция которая вставляет значения из массива мок в шаблон
 var addData = function (_arr) {
   var mapPinElement = mapPinTemplate.cloneNode(true);
-  mapPinElement.querySelector('img').setAttribute('src', _arr[i].author.avatar);
-  mapPinElement.querySelector('img').setAttribute('alt', _arr[i].offer.type);
-  mapPinElement.style.left = _arr[i].location.x + 'px';
-  mapPinElement.style.top = _arr[i].location.y + 'px';
+  mapPinElement.querySelector('img').setAttribute('src', _arr.author.avatar);
+  mapPinElement.querySelector('img').setAttribute('alt', _arr.offer.type);
+  mapPinElement.style.left = _arr.location.x + 'px';
+  mapPinElement.style.top = _arr.location.y + 'px';
   return mapPinElement;
 };
 
@@ -60,7 +60,7 @@ var fragment = document.createDocumentFragment();
 
 // 3-5 цикл запускающий функцию(которая вставляет значения) зависящий от длинны массива мок
 for (var j = 0; j < mock.length; j++) {
-  fragment.appendChild(addData(mock));
+  fragment.appendChild(addData(mock[j]));
 }
 
 // 3-6 вставляем данные в блок из контейнера
