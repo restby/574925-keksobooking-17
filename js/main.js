@@ -46,7 +46,7 @@ for (var i = 0; i < countOfObject.length; i++) {
 var mapPinTemplate = document.querySelector('#pin').content.querySelector('.map__pin');
 
 // 3-3 функция которая вставляет значения из массива мок в шаблон
-var addData = function (arr) {
+var addData = function (_arr) {
   var mapPinElement = mapPinTemplate.cloneNode(true);
   mapPinElement.querySelector('img').setAttribute('src', _arr.author.avatar);
   mapPinElement.querySelector('img').setAttribute('alt', _arr.offer.type);
