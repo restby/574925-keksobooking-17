@@ -40,7 +40,7 @@ for (var i = 0; i < countOfObject.length; i++) {
 
 // 3 ГЕНЕРАЦИЕЯ DOM ЭЛЕМЕНТОВ И ПРИСВОЕНИЕМ ИМ ДАННЫХ ИЗ МАССИВА И ВНЕДРЕНИЕ ИХ В ВЕРСТКУ
 // 3-1 находим блок куда будут вставляться данные
-var mapPins = document.querySelector('.map__pins');
+// var mapPins = document.querySelector('.map__pins');
 
 // 3-2 находим шаблон
 var mapPinTemplate = document.querySelector('#pin').content.querySelector('.map__pin');
