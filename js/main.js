@@ -93,16 +93,14 @@ setAttributeDisabled(selectArr);
 var mapPinMain = document.querySelector('.map__pin--main');
 // находим элемент '#address'
 var inputAddress = adForm.querySelector('#address');
-
-
-// устанавливаем у '#address' значение top / left от mapPinMain(ВРЕМЕННО!!!)
-inputAddress.setAttribute('value', '570, 375');
+// берем значения у '.map__pin--main' и формируем текст
+var mapPinMainPosition = mapPinMain.offsetLeft + ', ' + mapPinMain.offsetTop;
+// устанавливаем у '#address' значение value от mapPinMain
+inputAddress.setAttribute('value', mapPinMainPosition);
 // вешаем обработчик, который делает активной форму, карту и вызывает функции удаляющие атрибут 'disabled' у всех элементам 'fieldset' и 'select'
 mapPinMain.addEventListener('click', function () {
   removeAttributeDisabled(fieldsetArr);
   removeAttributeDisabled(selectArr);
   map.classList.remove('map--faded');
   adForm.classList.remove('ad-form--disabled');
-  // устанавливаем у '#address' значение top / left от mapPinMain
-  inputAddress.setAttribute('value', '550, 385');
 });
