@@ -1,7 +1,7 @@
 'use strict';
 // 1) открываем блок карты ".map"
 var map = document.querySelector('.map');
-map.classList.remove('map--faded');
+// map.classList.remove('map--faded');
 
 // 2) основной массив данных(объектов)
 var mock = [];
@@ -63,5 +63,41 @@ for (var j = 0; j < mock.length; j++) {
   fragment.appendChild(addData(mock[j]));
 }
 
-// 3-6 вставляем данные в блок из контейнера
-mapPins.appendChild(fragment);
+// находим форму '.ad-form'
+var adForm = document.querySelector('.ad-form');
+// находим все элементы 'fieldset'
+var fieldsetArr = document.querySelectorAll('fieldset');
+// находим все элементы 'select'
+var selectArr = document.querySelectorAll('select');
+// создаем функцию, которая будет перебирать массив / коллекцию и каждому элементу добавлять атрибут 'disabled'
+var setAttributeDisabled = function (arr) {
+  for (var k = 0; k < arr.length; k++) {
+    arr[k].setAttribute('disabled', '');
+  }
+};
+// создаем функцию, которая будет перебирать массив / коллекцию и у каждого элемента удалять атрибут 'disabled'
+var removeAttributeDisabled = function (arr) {
+  for (var k = 0; k < arr.length; k++) {
+    arr[k].removeAttribute('disabled', '');
+  }
+};
+// добавлят атрибут 'disabled' всем элементам 'fieldset'
+setAttributeDisabled(fieldsetArr);
+// добавлят атрибут 'disabled' всем элементам 'select'
+setAttributeDisabled(selectArr);
+// находим элемент '.map__pin--main'
+var mapPinMain = document.querySelector('.map__pin--main');
+// находим элемент '#address'
+var inputAddress = adForm.querySelector('#address');
+// берем значения у '.map__pin--main' и формируем текст
+var mapPinMainPosition = mapPinMain.offsetLeft + ', ' + mapPinMain.offsetTop;
+// устанавливаем у '#address' значение value от mapPinMain
+inputAddress.setAttribute('value', mapPinMainPosition);
+// вешаем обработчик, который делает активной форму, карту и вызывает функции удаляющие атрибут 'disabled' у всех элементам 'fieldset' и 'select' и вставляем данные в блок из контейнера
+mapPinMain.addEventListener('click', function () {
+  removeAttributeDisabled(fieldsetArr);
+  removeAttributeDisabled(selectArr);
+  map.classList.remove('map--faded');
+  adForm.classList.remove('ad-form--disabled');
+  mapPins.appendChild(fragment);
+});
