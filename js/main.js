@@ -101,3 +101,47 @@ mapPinMain.addEventListener('click', function () {
   adForm.classList.remove('ad-form--disabled');
   mapPins.appendChild(fragment);
 });
+
+
+var titleInput = adForm.querySelector('#title');
+
+titleInput.addEventListener('invalid', function () {
+  if (titleInput.validity.tooShort) {
+    titleInput.setCustomValidity('Заголовок объявления должен состоять минимум из 30 символов');
+  } else if (titleInput.validity.tooLong) {
+    titleInput.setCustomValidity('Название не должно превышать 100 символов');
+  } else if (titleInput.validity.valueMissing) {
+    titleInput.setCustomValidity('Обязательное поле');
+  } else {
+    titleInput.setCustomValidity('');
+  }
+});
+
+// var minCountPrice = adForm.querySelector('#price');
+// // console.log(minCountPrice.getAttribute('min'));
+// var getDataSize = function () {
+//   var type = adForm.querySelector('#type')
+// };
+// getData();
+// if (minCountType === 'bungalo') {
+//   // console.log(minCountType.getAttribute('value'));
+//   minCountPrice.setAttribute('min', 'минимальная цена за ночь 0');
+//   minCountPrice.setAttribute('placeholder', '0');
+//   // console.log(minCountPrice.getAttribute('min'));
+//   // console.log(minCountPrice.getAttribute('placeholder'));
+// } else if (minCountType === 'flat') {
+//   minCountPrice.setAttribute('min', 'минимальная цена за ночь 1000');
+//   minCountPrice.setAttribute('placeholder', '1000');
+//   // console.log(minCountPrice.getAttribute('min'));
+//   // console.log(minCountPrice.getAttribute('placeholder'));
+// } else if (minCountType === 'house') {
+//   minCountPrice.setAttribute('min', 'минимальная цена за ночь 5000');
+//   minCountPrice.setAttribute('placeholder', '5000');
+//   // console.log(minCountPrice.getAttribute('min'));
+//   // console.log(minCountPrice.getAttribute('placeholder'));
+// } else if (minCountType === 'palace') {
+//   minCountPrice.setAttribute('min', 'минимальная цена за ночь 10000');
+//   minCountPrice.setAttribute('placeholder', '10000');
+//   // console.log(minCountPrice.getAttribute('min'));
+//   // console.log(minCountPrice.getAttribute('placeholder'));
+// }
