@@ -102,14 +102,14 @@ mapPinMain.addEventListener('click', function () {
   mapPins.appendChild(fragment);
 });
 
-
+// находим элемент формы '#title'
 var titleInput = adForm.querySelector('#title');
-
+// запускаем код валидации на кол-во символов с  выдачей сообщений
 titleInput.addEventListener('invalid', function () {
   if (titleInput.validity.tooShort) {
     titleInput.setCustomValidity('Заголовок объявления должен состоять минимум из 30 символов');
   } else if (titleInput.validity.tooLong) {
-    titleInput.setCustomValidity('Название не должно превышать 100 символов');
+    titleInput.setCustomValidity('Заголовок объявления не должен превышать 100 символов');
   } else if (titleInput.validity.valueMissing) {
     titleInput.setCustomValidity('Обязательное поле');
   } else {
@@ -117,31 +117,43 @@ titleInput.addEventListener('invalid', function () {
   }
 });
 
-// var minCountPrice = adForm.querySelector('#price');
-// // console.log(minCountPrice.getAttribute('min'));
-// var getDataSize = function () {
-//   var type = adForm.querySelector('#type')
-// };
-// getData();
-// if (minCountType === 'bungalo') {
-//   // console.log(minCountType.getAttribute('value'));
-//   minCountPrice.setAttribute('min', 'минимальная цена за ночь 0');
-//   minCountPrice.setAttribute('placeholder', '0');
-//   // console.log(minCountPrice.getAttribute('min'));
-//   // console.log(minCountPrice.getAttribute('placeholder'));
-// } else if (minCountType === 'flat') {
-//   minCountPrice.setAttribute('min', 'минимальная цена за ночь 1000');
-//   minCountPrice.setAttribute('placeholder', '1000');
-//   // console.log(minCountPrice.getAttribute('min'));
-//   // console.log(minCountPrice.getAttribute('placeholder'));
-// } else if (minCountType === 'house') {
-//   minCountPrice.setAttribute('min', 'минимальная цена за ночь 5000');
-//   minCountPrice.setAttribute('placeholder', '5000');
-//   // console.log(minCountPrice.getAttribute('min'));
-//   // console.log(minCountPrice.getAttribute('placeholder'));
-// } else if (minCountType === 'palace') {
-//   minCountPrice.setAttribute('min', 'минимальная цена за ночь 10000');
-//   minCountPrice.setAttribute('placeholder', '10000');
-//   // console.log(minCountPrice.getAttribute('min'));
-//   // console.log(minCountPrice.getAttribute('placeholder'));
-// }
+// находим элемент формы '#type'
+var optionTypeSelected = adForm.querySelector('#type');
+// создаем функцию которая будет по изменению значения select изменять минимальное значения цены и первоначальную цену
+optionTypeSelected.onchange = function () {
+  // находим элемент формы '#price'
+  var minCountPrice = adForm.querySelector('#price');
+  // запускаем проверку (на тип жилья) которая изменяет минимальное значения цены и первоначальную цену
+  if (optionTypeSelected.value === 'bungalo') {
+    minCountPrice.setAttribute('min', 'минимальная цена за ночь 0');
+    minCountPrice.setAttribute('placeholder', '0');
+  } else if (optionTypeSelected.value === 'flat') {
+    minCountPrice.setAttribute('min', 'минимальная цена за ночь 1000');
+    minCountPrice.setAttribute('placeholder', '1000');
+  } else if (optionTypeSelected.value === 'house') {
+    minCountPrice.setAttribute('min', 'минимальная цена за ночь 5000');
+    minCountPrice.setAttribute('placeholder', '5000');
+  } else if (optionTypeSelected.value === 'palace') {
+    minCountPrice.setAttribute('min', 'минимальная цена за ночь 10000');
+    minCountPrice.setAttribute('placeholder', '10000');
+  }
+};
+
+// находим элемент формы '#timein'
+var optionTimein = adForm.querySelector('#timein');
+// создаем функцию которая будет по изменению значения select(время въезда) изменять значение другого select(дата выезда)
+optionTimein.onchange = function () {
+  // находим элемент формы '#timeout'
+  var optionTimeout = adForm.querySelector('#timeout');
+  // запускаем проверку (на время въезда) которая изменяет время выезда синхронно
+  if (optionTimein.value === '12:00') {
+    optionTimeout.setAttribute('value', '12:00');
+    optionTimeout.querySelector('option').textContent = 'Выезд до 12';
+  } else if (optionTimein.value === '13:00') {
+    optionTimeout.setAttribute('value', '13:00');
+    optionTimeout.querySelector('option').textContent = 'Выезд до 13';
+  } else if (optionTimein.value === '14:00') {
+    optionTimeout.setAttribute('value', '14:00');
+    optionTimeout.querySelector('option').textContent = 'Выезд до 14';
+  }
+};
