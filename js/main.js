@@ -40,7 +40,7 @@ for (var i = 0; i < countOfObject.length; i++) {
 
 // 3 ГЕНЕРАЦИЕЯ DOM ЭЛЕМЕНТОВ И ПРИСВОЕНИЕМ ИМ ДАННЫХ ИЗ МАССИВА И ВНЕДРЕНИЕ ИХ В ВЕРСТКУ
 // 3-1 находим блок куда будут вставляться данные
-// var mapPins = document.querySelector('.map__pins');
+var mapPins = document.querySelector('.map__pins');
 
 // 3-2 находим шаблон
 var mapPinTemplate = document.querySelector('#pin').content.querySelector('.map__pin');
@@ -62,10 +62,6 @@ var fragment = document.createDocumentFragment();
 for (var j = 0; j < mock.length; j++) {
   fragment.appendChild(addData(mock[j]));
 }
-
-// 3-6 вставляем данные в блок из контейнера
-// mapPins.appendChild(fragment);
-
 
 // находим форму '.ad-form'
 var adForm = document.querySelector('.ad-form');
@@ -97,10 +93,11 @@ var inputAddress = adForm.querySelector('#address');
 var mapPinMainPosition = mapPinMain.offsetLeft + ', ' + mapPinMain.offsetTop;
 // устанавливаем у '#address' значение value от mapPinMain
 inputAddress.setAttribute('value', mapPinMainPosition);
-// вешаем обработчик, который делает активной форму, карту и вызывает функции удаляющие атрибут 'disabled' у всех элементам 'fieldset' и 'select'
+// вешаем обработчик, который делает активной форму, карту и вызывает функции удаляющие атрибут 'disabled' у всех элементам 'fieldset' и 'select' и вставляем данные в блок из контейнера
 mapPinMain.addEventListener('click', function () {
   removeAttributeDisabled(fieldsetArr);
   removeAttributeDisabled(selectArr);
   map.classList.remove('map--faded');
   adForm.classList.remove('ad-form--disabled');
+  mapPins.appendChild(fragment);
 });
