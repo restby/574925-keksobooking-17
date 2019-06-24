@@ -101,3 +101,54 @@ mapPinMain.addEventListener('click', function () {
   adForm.classList.remove('ad-form--disabled');
   mapPins.appendChild(fragment);
 });
+
+// находим элемент формы '#title'
+var titleInput = adForm.querySelector('#title');
+// запускаем код валидации на кол-во символов с  выдачей сообщений
+titleInput.addEventListener('invalid', function () {
+  if (titleInput.validity.tooShort) {
+    titleInput.setCustomValidity('Заголовок объявления должен состоять минимум из 30 символов');
+  } else if (titleInput.validity.tooLong) {
+    titleInput.setCustomValidity('Заголовок объявления не должен превышать 100 символов');
+  } else if (titleInput.validity.valueMissing) {
+    titleInput.setCustomValidity('Обязательное поле');
+  } else {
+    titleInput.setCustomValidity('');
+  }
+});
+
+// находим элемент формы '#type'
+var optionTypeSelected = adForm.querySelector('#type');
+// создаем функцию которая будет по изменению значения select изменять минимальное значения цены и первоначальную цену
+optionTypeSelected.onchange = function () {
+  // находим элемент формы '#price'
+  var minCountPrice = adForm.querySelector('#price');
+  // запускаем проверку (на тип жилья) которая изменяет минимальное значения цены и первоначальную цену
+  if (optionTypeSelected.value === 'bungalo') {
+    minCountPrice.setAttribute('min', 'минимальная цена за ночь 0');
+    minCountPrice.setAttribute('placeholder', '0');
+  } else if (optionTypeSelected.value === 'flat') {
+    minCountPrice.setAttribute('min', 'минимальная цена за ночь 1000');
+    minCountPrice.setAttribute('placeholder', '1000');
+  } else if (optionTypeSelected.value === 'house') {
+    minCountPrice.setAttribute('min', 'минимальная цена за ночь 5000');
+    minCountPrice.setAttribute('placeholder', '5000');
+  } else if (optionTypeSelected.value === 'palace') {
+    minCountPrice.setAttribute('min', 'минимальная цена за ночь 10000');
+    minCountPrice.setAttribute('placeholder', '10000');
+  }
+};
+
+
+// находим элемент формы '#timein'
+var timeIn = document.querySelector('#timein');
+// находим элемент формы '#timeout'
+var timeOut = document.querySelector('#timeout');
+// вешаем функцию на изменение select и меняем в противоположном значение
+timeIn.onchange = function () {
+  timeOut.selectedIndex = this.selectedIndex;
+};
+// вешаем функцию на изменение select и меняем в противоположном значение
+timeOut.onchange = function () {
+  timeIn.selectedIndex = this.selectedIndex;
+};
