@@ -139,21 +139,16 @@ optionTypeSelected.onchange = function () {
   }
 };
 
+
 // находим элемент формы '#timein'
-var optionTimein = adForm.querySelector('#timein');
-// создаем функцию которая будет по изменению значения select(время въезда) изменять значение другого select(дата выезда)
-optionTimein.onchange = function () {
-  // находим элемент формы '#timeout'
-  var optionTimeout = adForm.querySelector('#timeout');
-  // запускаем проверку (на время въезда) которая изменяет время выезда синхронно
-  if (optionTimein.value === '12:00') {
-    optionTimeout.setAttribute('value', '12:00');
-    optionTimeout.querySelector('option').textContent = 'Выезд до 12';
-  } else if (optionTimein.value === '13:00') {
-    optionTimeout.setAttribute('value', '13:00');
-    optionTimeout.querySelector('option').textContent = 'Выезд до 13';
-  } else if (optionTimein.value === '14:00') {
-    optionTimeout.setAttribute('value', '14:00');
-    optionTimeout.querySelector('option').textContent = 'Выезд до 14';
-  }
+var timeIn = document.querySelector('#timein');
+// находим элемент формы '#timeout'
+var timeOut = document.querySelector('#timeout');
+// вешаем функцию на изменение select и меняем в противоположном значение
+timeIn.onchange = function () {
+  timeOut.selectedIndex = this.selectedIndex;
+};
+// вешаем функцию на изменение select и меняем в противоположном значение
+timeOut.onchange = function () {
+  timeIn.selectedIndex = this.selectedIndex;
 };
