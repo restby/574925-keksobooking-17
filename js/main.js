@@ -93,14 +93,6 @@ var inputAddress = adForm.querySelector('#address');
 var mapPinMainPosition = mapPinMain.offsetLeft + ', ' + mapPinMain.offsetTop;
 // устанавливаем у '#address' значение value от mapPinMain
 inputAddress.setAttribute('value', mapPinMainPosition);
-// вешаем обработчик, который делает активной форму, карту и вызывает функции удаляющие атрибут 'disabled' у всех элементам 'fieldset' и 'select' и вставляем данные в блок из контейнера ВРЕМЕННО
-// mapPinMain.addEventListener('click', function () {
-//   removeAttributeDisabled(fieldsetArr);
-//   removeAttributeDisabled(selectArr);
-//   map.classList.remove('map--faded');
-//   adForm.classList.remove('ad-form--disabled');
-//   mapPins.appendChild(fragment);
-// });
 
 // находим элемент формы '#title'
 var titleInput = adForm.querySelector('#title');
@@ -153,10 +145,52 @@ timeOut.onchange = function () {
   timeIn.selectedIndex = this.selectedIndex;
 };
 
-// mapPinMain.addEventListener('click', function () {
-//   removeAttributeDisabled(fieldsetArr);
-//   removeAttributeDisabled(selectArr);
-//   map.classList.remove('map--faded');
-//   adForm.classList.remove('ad-form--disabled');
-//   mapPins.appendChild(fragment);
-// });
+// вешаем обработчик для перемещения маркера, а так же делает активной карту, форму и вызывает функции удаляющие атрибут 'disabled' у всех элементам 'fieldset' и 'select' и вставляем данные в блок из контейнера
+mapPinMain.addEventListener('mousedown', function (evt) {
+  evt.preventDefault();
+  removeAttributeDisabled(fieldsetArr);
+  removeAttributeDisabled(selectArr);
+  map.classList.remove('map--faded');
+  adForm.classList.remove('ad-form--disabled');
+  mapPins.appendChild(fragment);
+  // первоначальные координаты маркера
+  var startCoords = {
+    x: evt.clientX,
+    y: evt.clientY
+  };
+  var addNewPosition = function () {
+    var newPosition = mapPinMain.offsetLeft + ', ' + mapPinMain.offsetTop;
+    inputAddress.setAttribute('value', newPosition);
+  }
+  // функция для расчета и установки координат маркера при сещении
+  var onMouseMove = function (moveEvt) {
+    moveEvt.preventDefault();
+    // считаем новые координаты
+    var shift = {
+      x: startCoords.x - moveEvt.clientX,
+      y: startCoords.y - moveEvt.clientY
+    };
+    // смещение мыши
+    startCoords = {
+      x: moveEvt.clientX,
+      y: moveEvt.clientY
+    };
+    // устанавливаем новые координаты
+    mapPinMain.style.top = (mapPinMain.offsetTop - shift.y) + 'px';
+    mapPinMain.style.left = (mapPinMain.offsetLeft - shift.x) + 'px';
+    // устанавливаем у '#address' значение value от новых координат mapPinMain
+    addNewPosition();
+  };
+  // функция на "отжатие" кнопки мыши которая удаляет события смещения и нажатия
+  var onMouseUp = function (upEvt) {
+    upEvt.preventDefault();
+    document.removeEventListener('mousemove', onMouseMove);
+    document.removeEventListener('mouseup', onMouseUp);
+    // устанавливаем у '#address' значение value от новых координат mapPinMain
+    addNewPosition();
+  };
+  // добавляем обработчик события смещения мыши
+  document.addEventListener('mousemove', onMouseMove);
+  // добавляем обработчик события "отжатие" кнопки мыши
+  document.addEventListener('mouseup', onMouseUp);
+});
