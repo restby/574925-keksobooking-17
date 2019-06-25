@@ -175,9 +175,16 @@ mapPinMain.addEventListener('mousedown', function (evt) {
       x: moveEvt.clientX,
       y: moveEvt.clientY
     };
-    // устанавливаем новые координаты
-    mapPinMain.style.top = (mapPinMain.offsetTop - shift.y) + 'px';
-    mapPinMain.style.left = (mapPinMain.offsetLeft - shift.x) + 'px';
+    // устанавливаем новые координаты в рамках по оси Y
+    if ((mapPinMain.offsetTop - shift.y) < 630 && (mapPinMain.offsetTop - shift.y) > 130) {
+      // console.log((mapPinMain.offsetTop - shift.y));
+      mapPinMain.style.top = (mapPinMain.offsetTop - shift.y) + 'px';
+    }
+    // устанавливаем новые координаты в рамках по оси X
+    if ((mapPinMain.offsetLeft - shift.x) < map.offsetWidth && (mapPinMain.offsetLeft - shift.x) > 0) {
+      // console.log((mapPinMain.offsetLeft - shift.x));
+      mapPinMain.style.left = (mapPinMain.offsetLeft - shift.x) + 'px';
+    }
     // устанавливаем у '#address' значение value от новых координат mapPinMain
     addNewPosition();
   };
