@@ -93,14 +93,14 @@ var inputAddress = adForm.querySelector('#address');
 var mapPinMainPosition = mapPinMain.offsetLeft + ', ' + mapPinMain.offsetTop;
 // устанавливаем у '#address' значение value от mapPinMain
 inputAddress.setAttribute('value', mapPinMainPosition);
-// вешаем обработчик, который делает активной форму, карту и вызывает функции удаляющие атрибут 'disabled' у всех элементам 'fieldset' и 'select' и вставляем данные в блок из контейнера
-mapPinMain.addEventListener('click', function () {
-  removeAttributeDisabled(fieldsetArr);
-  removeAttributeDisabled(selectArr);
-  map.classList.remove('map--faded');
-  adForm.classList.remove('ad-form--disabled');
-  mapPins.appendChild(fragment);
-});
+// вешаем обработчик, который делает активной форму, карту и вызывает функции удаляющие атрибут 'disabled' у всех элементам 'fieldset' и 'select' и вставляем данные в блок из контейнера ВРЕМЕННО
+// mapPinMain.addEventListener('click', function () {
+//   removeAttributeDisabled(fieldsetArr);
+//   removeAttributeDisabled(selectArr);
+//   map.classList.remove('map--faded');
+//   adForm.classList.remove('ad-form--disabled');
+//   mapPins.appendChild(fragment);
+// });
 
 // находим элемент формы '#title'
 var titleInput = adForm.querySelector('#title');
@@ -152,3 +152,11 @@ timeIn.onchange = function () {
 timeOut.onchange = function () {
   timeIn.selectedIndex = this.selectedIndex;
 };
+
+// mapPinMain.addEventListener('click', function () {
+//   removeAttributeDisabled(fieldsetArr);
+//   removeAttributeDisabled(selectArr);
+//   map.classList.remove('map--faded');
+//   adForm.classList.remove('ad-form--disabled');
+//   mapPins.appendChild(fragment);
+// });
