@@ -91,8 +91,6 @@ var mapPinMain = document.querySelector('.map__pin--main');
 var inputAddress = adForm.querySelector('#address');
 // // берем значения у '.map__pin--main' и формируем текст
 // var mapPinMainPosition = mapPinMain.offsetLeft + ', ' + mapPinMain.offsetTop;
-// // устанавливаем у '#address' значение value от mapPinMain
-// inputAddress.setAttribute('value', mapPinMainPosition);
 
 // находим элемент формы '#title'
 var titleInput = adForm.querySelector('#title');
@@ -146,6 +144,19 @@ timeOut.onchange = function () {
 
 // вешаем обработчик для перемещения маркера, а так же делает активной карту, форму и вызывает функции удаляющие атрибут 'disabled' у всех элементам 'fieldset' и 'select' и вставляем данные в блок из контейнера
 mapPinMain.addEventListener('mousedown', function (evt) {
+
+
+  /*
+Не делай при каждом клике removeAttributeDisabled(fieldsetArr);
+removeAttributeDisabled(selectArr);
+map.classList.remove('map--faded');
+adForm.classList.remove('ad-form--disabled');
+mapPins.appendChild(fragment);
+Добавь проверку, чтобы они отрабатывали только при первом клике(когда фома задизейблена)
+И можешь вынести это все в отдельную функцию
+*/
+
+
   evt.preventDefault();
   removeAttributeDisabled(fieldsetArr);
   removeAttributeDisabled(selectArr);
@@ -159,9 +170,9 @@ mapPinMain.addEventListener('mousedown', function (evt) {
     y: evt.clientY
   };
   // устанавливаем у '#address' значение value  с новыми координатами от mapPinMain(острого конца маркера)
-  var addNewPosition = function (left, top, width, height) {
+  var addNewPosition = function (left, top, width) {
     var mapPinLeft = left + Math.round(width / 2);
-    var mapPinTop = top + height + 22;
+    var mapPinTop = top;
     var newPosition = mapPinLeft + ', ' + mapPinTop;
     inputAddress.setAttribute('value', newPosition);
   };
@@ -180,26 +191,24 @@ mapPinMain.addEventListener('mousedown', function (evt) {
       y: moveEvt.clientY
     };
     // устанавливаем новые координаты в рамках по оси Y
-    if ((mapPinMain.offsetTop - shift.y) <= 630 && (mapPinMain.offsetTop - shift.y) >= 130) {
-      mapPinMain.style.top = (mapPinMain.offsetTop - shift.y) + 'px';
+    var moveLeft = mapPinMain.offsetLeft - shift.x;
+    var moveTop = mapPinMain.offsetTop - shift.y;
+    if (moveTop <= 630 && moveTop >= 130) {
+      mapPinMain.style.top = moveTop + 'px';
     }
     // устанавливаем новые координаты в рамках по оси X
-    if ((mapPinMain.offsetLeft - shift.x) <= (map.offsetWidth - mapPinMain.offsetWidth / 2) && (mapPinMain.offsetLeft - shift.x) >= (0 - mapPinMain.offsetWidth / 2)) {
-      mapPinMain.style.left = (mapPinMain.offsetLeft - shift.x) + 'px';
+    if (moveLeft <= (map.offsetWidth - mapPinMain.offsetWidth / 2) && moveLeft >= (0 - mapPinMain.offsetWidth / 2)) {
+      mapPinMain.style.left = moveLeft + 'px';
     }
-    // устанавливаем у '#address' значение value от новых координат mapPinMain
-    addNewPosition(mapPinMain.offsetLeft, mapPinMain.offsetTop, mapPinMain.offsetWidth, mapPinMain.offsetHeight);
+    addNewPosition(mapPinMain.offsetLeft, mapPinMain.offsetTop, mapPinMain.offsetWidth);
   };
   // функция на "отжатие" кнопки мыши которая удаляет события смещения и нажатия
   var onMouseUp = function (upEvt) {
     upEvt.preventDefault();
     document.removeEventListener('mousemove', onMouseMove);
     document.removeEventListener('mouseup', onMouseUp);
-    // устанавливаем у '#address' значение value от новых координат mapPinMain
-    addNewPosition(mapPinMain.offsetLeft, mapPinMain.offsetTop, mapPinMain.offsetWidth, mapPinMain.offsetHeight);
+    addNewPosition(mapPinMain.offsetLeft, mapPinMain.offsetTop, mapPinMain.offsetWidth);
   };
-  // добавляем обработчик события смещения мыши
   document.addEventListener('mousemove', onMouseMove);
-  // добавляем обработчик события "отжатие" кнопки мыши
   document.addEventListener('mouseup', onMouseUp);
 });
