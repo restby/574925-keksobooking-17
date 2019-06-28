@@ -141,30 +141,21 @@ timeIn.onchange = function () {
 timeOut.onchange = function () {
   timeIn.selectedIndex = this.selectedIndex;
 };
-
-// вешаем обработчик для перемещения маркера, а так же делает активной карту, форму и вызывает функции удаляющие атрибут 'disabled' у всех элементам 'fieldset' и 'select' и вставляем данные в блок из контейнера
-mapPinMain.addEventListener('mousedown', function (evt) {
-
-
-  /*
-Не делай при каждом клике removeAttributeDisabled(fieldsetArr);
-removeAttributeDisabled(selectArr);
-map.classList.remove('map--faded');
-adForm.classList.remove('ad-form--disabled');
-mapPins.appendChild(fragment);
-Добавь проверку, чтобы они отрабатывали только при первом клике(когда фома задизейблена)
-И можешь вынести это все в отдельную функцию
-*/
-
-
-  evt.preventDefault();
+// создаем функцию которая делает активной карту, форму и вызывает функции удаляющие атрибут 'disabled' у всех элементам 'fieldset' и 'select' и вставляем данные в блок из контейнера
+var removeAttribute = function () {
   removeAttributeDisabled(fieldsetArr);
   removeAttributeDisabled(selectArr);
   map.classList.remove('map--faded');
   adForm.classList.remove('ad-form--disabled');
   mapPins.appendChild(fragment);
+};
+// вешаем обработчик для перемещения маркера
+mapPinMain.addEventListener('mousedown', function (evt) {
+  evt.preventDefault();
+  if (map.classList.contains('map--faded')) {
+    removeAttribute();
+  }
   // первоначальные координаты маркера
-
   var startCoords = {
     x: evt.clientX,
     y: evt.clientY
