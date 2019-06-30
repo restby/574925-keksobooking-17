@@ -161,9 +161,9 @@ mapPinMain.addEventListener('mousedown', function (evt) {
     y: evt.clientY
   };
   // устанавливаем у '#address' значение value  с новыми координатами от mapPinMain(острого конца маркера)
-  var addNewPosition = function (left, top, width) {
+  var addNewPosition = function (left, top, width, height) {
     var mapPinLeft = left + Math.round(width / 2);
-    var mapPinTop = top;
+    var mapPinTop = top + height;
     var newPosition = mapPinLeft + ', ' + mapPinTop;
     inputAddress.setAttribute('value', newPosition);
   };
@@ -191,14 +191,14 @@ mapPinMain.addEventListener('mousedown', function (evt) {
     if (moveLeft <= (map.offsetWidth - mapPinMain.offsetWidth / 2) && moveLeft >= (0 - mapPinMain.offsetWidth / 2)) {
       mapPinMain.style.left = moveLeft + 'px';
     }
-    addNewPosition(mapPinMain.offsetLeft, mapPinMain.offsetTop, mapPinMain.offsetWidth);
+    addNewPosition(mapPinMain.offsetLeft, mapPinMain.offsetTop, mapPinMain.offsetWidth, mapPinMain.offsetHeight);
   };
   // функция на "отжатие" кнопки мыши которая удаляет события смещения и нажатия
   var onMouseUp = function (upEvt) {
     upEvt.preventDefault();
     document.removeEventListener('mousemove', onMouseMove);
     document.removeEventListener('mouseup', onMouseUp);
-    addNewPosition(mapPinMain.offsetLeft, mapPinMain.offsetTop, mapPinMain.offsetWidth);
+    addNewPosition(mapPinMain.offsetLeft, mapPinMain.offsetTop, mapPinMain.offsetWidth, mapPinMain.offsetHeight);
   };
   document.addEventListener('mousemove', onMouseMove);
   document.addEventListener('mouseup', onMouseUp);
