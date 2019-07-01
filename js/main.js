@@ -176,7 +176,7 @@ mapPinMain.addEventListener('mousedown', function (evt) {
     // устанавливаем новые координаты в рамках по оси Y
     var moveLeft = mapPinMain.offsetLeft - shift.x;
     var moveTop = mapPinMain.offsetTop - shift.y;
-    if (moveTop <= 630 && moveTop >= 130) {
+    if (moveTop <= 565 && moveTop >= 65) {
       mapPinMain.style.top = moveTop + 'px';
     }
     // устанавливаем новые координаты в рамках по оси X
