@@ -2,7 +2,6 @@
 // 1) открываем блок карты ".map"
 var map = document.querySelector('.map');
 // map.classList.remove('map--faded');
-
 // 2) основной массив данных(объектов)
 var mock = [];
 // вспомогательный массив
@@ -20,7 +19,6 @@ function randomCoordinate(min, max) {
   return rand;
 }
 for (var i = 0; i < countOfObject.length; i++) {
-
   // создание объекта данных
   var obj = {
     author: {
@@ -37,14 +35,11 @@ for (var i = 0; i < countOfObject.length; i++) {
   // вставка объекта данных в массив
   mock.push(obj);
 }
-
 // 3 ГЕНЕРАЦИЕЯ DOM ЭЛЕМЕНТОВ И ПРИСВОЕНИЕМ ИМ ДАННЫХ ИЗ МАССИВА И ВНЕДРЕНИЕ ИХ В ВЕРСТКУ
 // 3-1 находим блок куда будут вставляться данные
 var mapPins = document.querySelector('.map__pins');
-
 // 3-2 находим шаблон
 var mapPinTemplate = document.querySelector('#pin').content.querySelector('.map__pin');
-
 // 3-3 функция которая вставляет значения из массива мок в шаблон
 var addData = function (_arr) {
   var mapPinElement = mapPinTemplate.cloneNode(true);
@@ -54,10 +49,8 @@ var addData = function (_arr) {
   mapPinElement.style.top = _arr.location.y + 'px';
   return mapPinElement;
 };
-
 // 3-4 создаем контейнер
 var fragment = document.createDocumentFragment();
-
 // 3-5 цикл запускающий функцию(которая вставляет значения) зависящий от длинны массива мок
 for (var j = 0; j < mock.length; j++) {
   fragment.appendChild(addData(mock[j]));
@@ -89,9 +82,6 @@ setAttributeDisabled(selectArr);
 var mapPinMain = document.querySelector('.map__pin--main');
 // находим элемент '#address'
 var inputAddress = adForm.querySelector('#address');
-// // берем значения у '.map__pin--main' и формируем текст
-// var mapPinMainPosition = mapPinMain.offsetLeft + ', ' + mapPinMain.offsetTop;
-
 // находим элемент формы '#title'
 var titleInput = adForm.querySelector('#title');
 // запускаем код валидации на кол-во символов с  выдачей сообщений
