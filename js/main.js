@@ -137,7 +137,7 @@ var removeAttribute = function () {
   removeAttributeDisabled(selectArr);
   map.classList.remove('map--faded');
   adForm.classList.remove('ad-form--disabled');
-  mapPins.appendChild(fragment);
+  // mapPins.appendChild(fragment);
 };
 // вешаем обработчик для перемещения маркера
 mapPinMain.addEventListener('mousedown', function (evt) {
@@ -145,6 +145,7 @@ mapPinMain.addEventListener('mousedown', function (evt) {
   if (map.classList.contains('map--faded')) {
     removeAttribute();
   }
+  mapPins.appendChild(fragment);
   // первоначальные координаты маркера
   var startCoords = {
     x: evt.clientX,

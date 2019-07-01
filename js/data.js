@@ -2,7 +2,6 @@
 (function () {
   // 1) открываем блок карты ".map"
   var map = document.querySelector('.map');
-  // map.classList.remove('map--faded');
   // 2) основной массив данных(объектов)
   var mock = [];
   // вспомогательный массив

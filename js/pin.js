@@ -1,13 +1,7 @@
 'use strict';
 (function () {
-  // создаем функцию которая делает активной карту, форму и вызывает функции удаляющие атрибут 'disabled' у всех элементам 'fieldset' и 'select' и вставляем данные в блок из контейнера
-  var removeAttribute = function () {
-    removeAttributeDisabled(fieldsetArr);
-    removeAttributeDisabled(selectArr);
-    map.classList.remove('map--faded');
-    adForm.classList.remove('ad-form--disabled');
-    mapPins.appendChild(fragment);
-  };
+// находим элемент '.map__pin--main'
+var mapPinMain = document.querySelector('.map__pin--main');
   // вешаем обработчик для перемещения маркера
   mapPinMain.addEventListener('mousedown', function (evt) {
     evt.preventDefault();
@@ -62,5 +56,5 @@
     };
     document.addEventListener('mousemove', onMouseMove);
     document.addEventListener('mouseup', onMouseUp);
-  });  
+  });
 })();
