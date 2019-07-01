@@ -160,6 +160,7 @@ mapPinMain.addEventListener('mousedown', function (evt) {
     x: evt.clientX,
     y: evt.clientY
   };
+
   // устанавливаем у '#address' значение value  с новыми координатами от mapPinMain(острого конца маркера)
   var addNewPosition = function (left, top, width, height) {
     var mapPinLeft = left + Math.round(width / 2);
