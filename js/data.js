@@ -1,7 +1,7 @@
 'use strict';
 (function () {
   // 1) открываем блок карты ".map"
-  var map = document.querySelector('.map');
+  var MAP = document.querySelector('.map');
   // 2) основной массив данных(объектов)
   var MOCK = [];
   // вспомогательный массив
@@ -28,7 +28,7 @@
         type: arrayRandElement(offerArray)
       },
       location: {
-        x: randomCoordinate(0, map.offsetWidth),
+        x: randomCoordinate(0, MAP.offsetWidth),
         y: randomCoordinate(130, 630)
       }
     };
@@ -36,6 +36,7 @@
     MOCK.push(obj);
   }
   window.data = {
-    mock: MOCK
+    mock: MOCK,
+    map: MAP
   };
 })();
