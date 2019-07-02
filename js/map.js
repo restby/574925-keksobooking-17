@@ -17,7 +17,14 @@
   // 3-4 создаем контейнер
   var fragment = document.createDocumentFragment();
   // 3-5 цикл запускающий функцию(которая вставляет значения) зависящий от длинны массива мок
-  for (var j = 0; j < mock.length; j++) {
-    fragment.appendChild(addData(mock[j]));
+  for (var j = 0; j < window.data.mock.length; j++) {
+    fragment.appendChild(addData(window.data.mock[j]));
   }
+  // устанавливаем у '#address' значение value  с новыми координатами от mapPinMain(острого конца маркера)
+  var addNewPosition = function (left, top, width, height) {
+    var mapPinLeft = left + Math.round(width / 2);
+    var mapPinTop = top + height;
+    var newPosition = mapPinLeft + ', ' + mapPinTop;
+    inputAddress.setAttribute('value', newPosition);
+  };
 })();

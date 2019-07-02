@@ -3,7 +3,7 @@
   // 1) открываем блок карты ".map"
   var map = document.querySelector('.map');
   // 2) основной массив данных(объектов)
-  var mock = [];
+  var MOCK = [];
   // вспомогательный массив
   var countOfObject = [1, 2, 3, 4, 5, 6, 7, 8];
   // массив для offer
@@ -33,6 +33,9 @@
       }
     };
     // вставка объекта данных в массив
-    mock.push(obj);
+    MOCK.push(obj);
   }
+  window.data = {
+    mock: MOCK
+  };
 })();
