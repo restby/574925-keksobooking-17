@@ -15,3 +15,88 @@ removeAttributeDisabled можешь напрямую описать и вызы
 Anton Tolstenko
 еще мелкий вопрос, уже из учебного проекта: код в модуле setup.js (он же код из демки) var form = window.util.setup.querySelecto
 не используемые аргументы функции удаляйs
+
+// Модуль util.js
+(function () {
+  var ESC_KEYCODE = 27;
+  var ENTER_KEYCODE = 13;
+  console.log('Модуль util создан!');
+  window.util = {
+    ESC_KEYCODE: ESC_KEYCODE,
+    ENTER_KEYCODE: ENTER_KEYCODE
+  };
+})();
+
+// Модуль dialog.js
+(function () {
+  console.log(window.util.ESC_KEYCODE);
+  console.log(window.util.ENTER_KEYCODE);
+  console.log('Модуль dialog создан!');
+})();
+// Модуль setup.js
+(function () {
+  console.log(window.util.ESC_KEYCODE);
+  console.log('Модуль setup создан!');
+})();
+
+
+// Файл colorize.js
+'use strict';
+(function () {
+  var COLORS = ['red', 'green', 'blue'];
+  var getRandomColor = function () {
+    return COLORS[Math.floor(COLORS.length * Math.random())];
+  };
+  window.colorize = function (element) {
+    element.addEventListener('click', function () {
+      var color = getRandomColor();
+      if (element.tagName.toLowerCase() === 'div') {
+        element.style.backgroundColor = color;
+      } else {
+        element.style.fill = color;
+      }
+    })
+  }
+})();
+
+// Файл setup.js
+'use strict';
+(function () {
+  var setup = document.querySelector('.setup');
+  setup.classList.remove('hidden');
+  var wizard = setup.querySelector('.wizard');
+  var wizardCoat = wizard.querySelector('.wizard-coat');
+  var fireball = setup.querySelector('.setup-fireball-wrap');
+  window.colorize(wizardCoat);
+  window.colorize(fireball);
+})();
+
+
+// Файл util.js
+'use strict';
+(function () {
+  var ESC_KEYCODE = 27;
+  var ENTER_KEYCODE = 13;
+  window.util = {
+    isEscEvent: function (evt, action) {
+      if (evt.keyCode === ESC_KEYCODE) {
+        action();
+      }
+    },
+    isEnterEvent: function (evt, action) {
+      if (evt.keyCode === ENTER_KEYCODE) {
+        action();
+      }
+    }
+  };
+})();
+
+var onPopupEscPress = function(evt) {
+    window.util.isEscEvent(evt, closePopup);
+  };
+setupOpen.addEventListener('keydown', function(evt) {
+    window.util.isEnterEvent(evt, openPopup);
+  });
+setupClose.addEventListener('keydown', function(evt) {
+  window.util.isEnterEvent(evt, closePopup);
+});
