@@ -1,11 +1,11 @@
 'use strict';
 (function () {
-  // 3 ГЕНЕРАЦИЕЯ DOM ЭЛЕМЕНТОВ И ПРИСВОЕНИЕМ ИМ ДАННЫХ ИЗ МАССИВА И ВНЕДРЕНИЕ ИХ В ВЕРСТКУ
-  // 3-1 находим блок куда будут вставляться данные
+  // ГЕНЕРАЦИЕЯ DOM ЭЛЕМЕНТОВ, ПРИСВОЕНИЕМ ИМ ДАННЫХ И ВНЕДРЕНИЕ ИХ В ВЕРСТКУ
+  // находим блок куда будут вставляться данные
   var mapPins = document.querySelector('.map__pins');
-  // 3-2 находим шаблон
+  // находим шаблон
   var mapPinTemplate = document.querySelector('#pin').content.querySelector('.map__pin');
-  // 3-3 функция которая вставляет значения из массива мок в шаблон
+  // функция которая копирует начинку шаблона, добавляет разлиные свойства/стили/значения атрибутов к элементам внутри шаблона и создает элемент
   var addData = function (_arr) {
     var mapPinElement = mapPinTemplate.cloneNode(true);
     mapPinElement.querySelector('img').setAttribute('src', _arr.author.avatar);
@@ -14,16 +14,11 @@
     mapPinElement.style.top = _arr.location.y + 'px';
     return mapPinElement;
   };
-  // 3-4 создаем контейнер
-  var fragment = document.createDocumentFragment();
-  // 3-5 цикл запускающий функцию(которая вставляет значения) зависящий от длинны массива мок
-  for (var j = 0; j < window.data.mock.length; j++) {
-    fragment.appendChild(addData(window.data.mock[j]));
-  }
   // находим элемент '.map__pin--main'
   var mapPinMain = document.querySelector('.map__pin--main');
   // находим элемент '#address'
   var inputAddress = window.form.adForm.querySelector('#address');
+  // запускаем функцию по нажатию кнопки мыши, которая "активирует" форму(удаляя классы)
   mapPinMain.addEventListener('mousedown', function (evt) {
     evt.preventDefault();
     if (window.data.map.classList.contains('map--faded')) {
@@ -31,7 +26,37 @@
       window.data.map.classList.remove('map--faded');
       window.form.adForm.classList.remove('ad-form--disabled');
     }
-    mapPins.appendChild(fragment);
+
+    var successHandler = function (data) {
+      // создаем контейнер
+      var fragment = document.createDocumentFragment();
+      // цикл запускающий функцию(которая вставляет значения)
+      for (var i = 0; i < data.length; i++) {
+        fragment.appendChild(addData(data[i]));
+      }
+      mapPins.appendChild(fragment);
+    };
+
+    var errorHandler = function () {
+      // находим шаблон
+      var errorTemplate = document.querySelector('#error').content.querySelector('.error');
+      // var errorBtn = document.querySelector('.error__button');
+      var refreshPage = function () {
+        window.location.reload();
+      };
+      // функция которая копирует начинку шаблона
+      var addErrorMessage = function (_arr) {
+        var errorElement = errorTemplate.cloneNode(true);
+        return errorElement;
+      };
+      // создаем контейнер
+      var fragment = document.createDocumentFragment();
+      fragment.appendChild(addErrorMessage());
+      mapPins.appendChild(fragment);
+      document.querySelector('.error__button').addEventListener('click', refreshPage);
+    };
+
+    window.load(successHandler, errorHandler);
     // первоначальные координаты маркера
     var startCoords = {
       x: evt.clientX,
