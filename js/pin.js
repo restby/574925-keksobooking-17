@@ -14,7 +14,7 @@
     return mapPinElement;
   };
   // функция успешного ответа от сервера
-  var successPinRender = function (data) {
+  var renderPins = function (data) {
     // создаем контейнер
     var fragment = document.createDocumentFragment();
     // цикл запускающий функцию(которая вставляет значения)
@@ -24,7 +24,7 @@
     mapPins.appendChild(fragment);
   };
   window.pin = {
-    successPinRender: successPinRender,
+    renderPins: renderPins,
     mapPins: mapPins
   };
 })();

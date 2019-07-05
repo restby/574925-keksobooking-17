@@ -24,7 +24,7 @@
   };
 
   // функция ошибки - ответа сервера
-  var errorPinRender = function () {
+  var errorHandler = function () {
     // находим шаблон
     var errorTemplate = document.querySelector('#error').content.querySelector('.error');
     // var errorBtn = document.querySelector('.error__button');
@@ -46,6 +46,6 @@
 
   window.server = {
     load: load,
-    errorPinRender: errorPinRender
+    errorHandler: errorHandler
   };
 })();

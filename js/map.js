@@ -20,7 +20,7 @@
       window.form.editsForm();
       map.classList.remove('map--faded');
       window.form.adForm.classList.remove('ad-form--disabled');
-      window.server.load(window.pin.successPinRender, window.server.errorPinRender);
+      window.server.load(window.pin.renderPins, window.server.errorHandler);
     }
     // первоначальные координаты маркера
     var startCoords = {
