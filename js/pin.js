@@ -14,7 +14,7 @@
     return mapPinElement;
   };
   // функция успешного ответа от сервера
-  var successHandler = function (data) {
+  var successPinRender = function (data) {
     // создаем контейнер
     var fragment = document.createDocumentFragment();
     // цикл запускающий функцию(которая вставляет значения)
@@ -23,29 +23,8 @@
     }
     mapPins.appendChild(fragment);
   };
-  // функция ошибки - ответа сервера
-  var errorHandler = function () {
-    // находим шаблон
-    var errorTemplate = document.querySelector('#error').content.querySelector('.error');
-    // var errorBtn = document.querySelector('.error__button');
-    // функция перезагрузки страницы
-    var refreshPage = function () {
-      window.location.reload();
-    };
-    // функция которая копирует начинку шаблона
-    var addErrorMessage = function (_arr) {
-      var errorElement = errorTemplate.cloneNode(true);
-      return errorElement;
-    };
-    // создаем контейнер
-    var fragment = document.createDocumentFragment();
-    fragment.appendChild(addErrorMessage());
-    mapPins.appendChild(fragment);
-    document.querySelector('.error__button').addEventListener('click', refreshPage);
-  };
   window.pin = {
-    successHandler: successHandler,
-    errorHandler: errorHandler
+    successPinRender: successPinRender,
+    mapPins: mapPins
   };
-  // window.load(successHandler, errorHandler);
 })();
