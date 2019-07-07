@@ -18,7 +18,7 @@
     // создаем контейнер
     var fragment = document.createDocumentFragment();
     // цикл запускающий функцию(которая вставляет значения)
-    for (var i = 0; i < data.length; i++) {
+    for (var i = 0; i < 5; i++) {
       fragment.appendChild(addData(data[i]));
     }
     mapPins.appendChild(fragment);
