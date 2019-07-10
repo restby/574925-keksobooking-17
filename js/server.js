@@ -9,7 +9,6 @@
       // проверяем статус
       if (xhr.status === 200) {
         onSuccess(xhr.response);
-        // console.log(xhr);
       } else {
         onError('Статус ответа: ' + xhr.status + ' ' + xhr.statusText);
       }
@@ -26,29 +25,32 @@
     xhr.open('GET', URL);
     xhr.send();
   };
+  // находим блок куда будут вставляться данные
+  var mapPins = document.querySelector('.map__pins');
 
   // функция ошибки - ответа сервера
   var errorHandler = function () {
     // находим шаблон
     var errorTemplate = document.querySelector('#error').content.querySelector('.error');
-    // var errorBtn = document.querySelector('.error__button');
     // функция перезагрузки страницы
     var refreshPage = function () {
       window.location.reload();
     };
     // функция которая копирует начинку шаблона Error
-    var addErrorMessage = function () {
+    var addErrorMessage = function (_arr) {
       var errorElement = errorTemplate.cloneNode(true);
       return errorElement;
     };
     // создаем контейнер
     var fragment = document.createDocumentFragment();
     fragment.appendChild(addErrorMessage());
+    mapPins.appendChild(fragment);
     document.querySelector('.error__button').addEventListener('click', refreshPage);
   };
 
   window.server = {
     load: load,
-    errorHandler: errorHandler
+    errorHandler: errorHandler,
+    mapPins: mapPins
   };
 })();

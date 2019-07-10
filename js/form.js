@@ -69,7 +69,6 @@
   timeOut.onchange = function () {
     timeIn.selectedIndex = this.selectedIndex;
   };
-
   // создаем функцию которая делает активной карту, форму и вызывает функции удаляющие атрибут 'disabled' у всех элементам 'fieldset' и 'select' и вставляем данные в блок из контейнера
   var editsForm = function () {
     removeAttributeDisabled(fieldsetArr);
