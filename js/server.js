@@ -37,7 +37,7 @@
       window.location.reload();
     };
     // функция которая копирует начинку шаблона Error
-    var addErrorMessage = function (_arr) {
+    var addErrorMessage = function () {
       var errorElement = errorTemplate.cloneNode(true);
       return errorElement;
     };
