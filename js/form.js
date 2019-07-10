@@ -37,22 +37,22 @@
     }
   });
   // находим элемент формы '#type'
-  var optionTypeSelected = ADFORM.querySelector('#type');
+  var type = ADFORM.querySelector('#type');
   // создаем функцию которая будет по изменению значения select изменять минимальное значения цены и первоначальную цену
-  optionTypeSelected.onchange = function () {
+  type.onchange = function () {
     // находим элемент формы '#price'
     var minCountPrice = ADFORM.querySelector('#price');
     // запускаем проверку (на тип жилья) которая изменяет минимальное значения цены и первоначальную цену
-    if (optionTypeSelected.value === 'bungalo') {
+    if (type.value === 'bungalo') {
       minCountPrice.setAttribute('min', 'минимальная цена за ночь 0');
       minCountPrice.setAttribute('placeholder', '0');
-    } else if (optionTypeSelected.value === 'flat') {
+    } else if (type.value === 'flat') {
       minCountPrice.setAttribute('min', 'минимальная цена за ночь 1000');
       minCountPrice.setAttribute('placeholder', '1000');
-    } else if (optionTypeSelected.value === 'house') {
+    } else if (type.value === 'house') {
       minCountPrice.setAttribute('min', 'минимальная цена за ночь 5000');
       minCountPrice.setAttribute('placeholder', '5000');
-    } else if (optionTypeSelected.value === 'palace') {
+    } else if (type.value === 'palace') {
       minCountPrice.setAttribute('min', 'минимальная цена за ночь 10000');
       minCountPrice.setAttribute('placeholder', '10000');
     }
@@ -69,6 +69,7 @@
   timeOut.onchange = function () {
     timeIn.selectedIndex = this.selectedIndex;
   };
+
   // создаем функцию которая делает активной карту, форму и вызывает функции удаляющие атрибут 'disabled' у всех элементам 'fieldset' и 'select' и вставляем данные в блок из контейнера
   var editsForm = function () {
     removeAttributeDisabled(fieldsetArr);
