@@ -13,6 +13,47 @@
     var newPosition = mapPinLeft + ', ' + mapPinTop;
     inputAddress.setAttribute('value', newPosition);
   };
+
+
+/** */
+  // создаем массив, куда сохраним позже полученные данные с сервера
+  var pins = [];
+  var housingTypeValue;
+  var updatePins = function () {
+    var sameTypePins = pins.filter(function (it) {
+      return it.offer.type === housingTypeValue;
+    });
+    // вызывает внешнюю функцию-рендер
+    window.pin.renderPins(sameTypePins);
+  };
+  // находим элемент фильтра '#housing-type'
+  var housingType = document.querySelector('#housing-type');
+  // создаем функцию которая будет по изменению значения select изменять минимальное значения цены и первоначальную цену
+  housingType.onchange = function () {
+    // запускаем проверку (на тип жилья)
+    if (housingType.value === 'bungalo') {
+      housingTypeValue = housingType.value;
+      updatePins();
+    } else if (housingType.value === 'flat') {
+      housingTypeValue = housingType.value;
+      updatePins();
+    } else if (housingType.value === 'house') {
+      housingTypeValue = housingType.value;
+      updatePins();
+    } else if (housingType.value === 'palace') {
+      housingTypeValue = housingType.value;
+      updatePins();
+    }
+    // console.log(housingTypeValue);
+  };
+  // функция успешного ответа сервера, которая выполняет следующие действия:
+  var successHandler = function (data) {
+    pins = data;
+    updatePins();
+    // console.log(data);
+  };
+
+/** */
   // запускаем функцию по нажатию кнопки мыши, которая "активирует" форму(удаляя классы)
   mapPinMain.addEventListener('mousedown', function (evt) {
     evt.preventDefault();
@@ -20,8 +61,10 @@
       window.form.editsForm();
       map.classList.remove('map--faded');
       window.form.adForm.classList.remove('ad-form--disabled');
-      window.server.load(window.pin.renderPins, window.server.errorHandler);
+      window.server.load(successHandler, window.server.errorHandler);
     }
+
+
     // первоначальные координаты маркера
     var startCoords = {
       x: evt.clientX,
