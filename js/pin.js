@@ -1,32 +1,7 @@
 'use strict';
 (function () {
-  /*
-  // находим шаблон
-  var mapPinTemplate = document.querySelector('#pin').content.querySelector('.map__pin');
-  // функция которая копирует начинку шаблона, добавляет разлиные свойства/стили/значения атрибутов к элементам внутри шаблона и создает элемент
-  var addData = function (_arr) {
-    var mapPinElement = mapPinTemplate.cloneNode(true);
-    mapPinElement.querySelector('img').setAttribute('src', _arr.author.avatar);
-    mapPinElement.querySelector('img').setAttribute('alt', _arr.offer.type);
-    mapPinElement.style.left = _arr.location.x + 'px';
-    mapPinElement.style.top = _arr.location.y + 'px';
-    return mapPinElement;
-  };
-  // функция успешного ответа от сервера
-  var renderPins = function (data) {
-    // создаем контейнер
-    var fragment = document.createDocumentFragment();
-    // цикл запускающий функцию(которая вставляет значения)
-    for (var i = 0; i < 5; i++) {
-      fragment.appendChild(addData(data[i]));
-    }
-    window.server.mapPins.appendChild(fragment);
-  };
-  window.pin = {
-    renderPins: renderPins
-  };
-  */
-
+  // находим блок куда будут вставляться данные
+  var mapPins = document.querySelector('.map__pins');
   // находим шаблон
   var mapPinTemplate = document.querySelector('#pin');
   // функция которая копирует начинку шаблона, добавляет разлиные свойства/стили/значения атрибутов к элементам внутри шаблона, создает и возвращает элемент
@@ -47,13 +22,21 @@
   };
   // создаем функцию-рендер, которая получает в параметр данные с сервера и выполняет следующие действия:
   var renderPins = function (data) {
+    // console.log(data);
     // устанавливает количество отображаемых меток
     var takeNumber = data.length > 5 ? 5 : data.length;
-    window.server.mapPins.innerHTML = '';
+    // блок очистки карты при смене типа жилья:
+    // находим все метки и каждую проверяем, что бы не удалить главную метку при смене типа
+    document.querySelectorAll('.map__pin').forEach(function (it) {
+      if (!it.classList.contains('map__pin--main')) {
+        // удаляем метку
+        it.style.display = 'none';
+      }
+    });
     // запускает цикл от 0 до количества отображаемых меток установленных ранее
     for (var i = 0; i < takeNumber; i++) {
       // на каждом шаге цикла вставляет в контейнер(где размещаются маги) измененный функцией-рендер(с использованием данных из ответа сервера) шаблон
-      window.server.mapPins.appendChild(addData(data[i]));
+      mapPins.appendChild(addData(data[i]));
     }
   };
   // отдаем наружу функцию - рендер

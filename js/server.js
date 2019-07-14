@@ -25,8 +25,7 @@
     xhr.open('GET', URL);
     xhr.send();
   };
-  // находим блок куда будут вставляться данные
-  var mapPins = document.querySelector('.map__pins');
+
 
   // функция ошибки - ответа сервера
   var errorHandler = function () {
@@ -44,13 +43,12 @@
     // создаем контейнер
     var fragment = document.createDocumentFragment();
     fragment.appendChild(addErrorMessage());
-    mapPins.appendChild(fragment);
+    document.querySelector('.map__pins').appendChild(fragment);
     document.querySelector('.error__button').addEventListener('click', refreshPage);
   };
 
   window.server = {
     load: load,
-    errorHandler: errorHandler,
-    mapPins: mapPins
+    errorHandler: errorHandler
   };
 })();

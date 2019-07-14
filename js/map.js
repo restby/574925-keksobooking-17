@@ -2,7 +2,7 @@
 (function () {
   // ГЕНЕРАЦИЕЯ DOM ЭЛЕМЕНТОВ, ПРИСВОЕНИЕМ ИМ ДАННЫХ И ВНЕДРЕНИЕ ИХ В ВЕРСТКУ
   var map = document.querySelector('.map');
-  // находим элемент '.map__pin--main'
+  // находим элемент '.map__pin--main' - маркер своего объявления
   var mapPinMain = document.querySelector('.map__pin--main');
   // находим элемент '#address'
   var inputAddress = window.form.adForm.querySelector('#address');
@@ -13,47 +13,38 @@
     var newPosition = mapPinLeft + ', ' + mapPinTop;
     inputAddress.setAttribute('value', newPosition);
   };
-
-
-/** */
   // создаем массив, куда сохраним позже полученные данные с сервера
   var pins = [];
-  var housingTypeValue;
+  // функция которая фильтрует полученные данные с сервера и перерисовывает метки в зависимости от выбора типа жилья
   var updatePins = function () {
     var sameTypePins = pins.filter(function (it) {
       return it.offer.type === housingTypeValue;
     });
-    // вызывает внешнюю функцию-рендер
+    // вызывает внешнюю функцию-рендер, которая принимает в себя отфильтрованные данные
     window.pin.renderPins(sameTypePins);
   };
+  // переменная где будет храниться значение выбора типа жилья
+  var housingTypeValue;
   // находим элемент фильтра '#housing-type'
   var housingType = document.querySelector('#housing-type');
-  // создаем функцию которая будет по изменению значения select изменять минимальное значения цены и первоначальную цену
+  // создаем функцию которая будет по изменению значения select типа жилья будет перерисовывать метки
   housingType.onchange = function () {
     // запускаем проверку (на тип жилья)
-    if (housingType.value === 'bungalo') {
-      housingTypeValue = housingType.value;
-      updatePins();
-    } else if (housingType.value === 'flat') {
-      housingTypeValue = housingType.value;
-      updatePins();
-    } else if (housingType.value === 'house') {
-      housingTypeValue = housingType.value;
-      updatePins();
-    } else if (housingType.value === 'palace') {
+    if (housingType.value === 'any') {
+      window.pin.renderPins(pins);
+    } else {
       housingTypeValue = housingType.value;
       updatePins();
     }
-    // console.log(housingTypeValue);
   };
   // функция успешного ответа сервера, которая выполняет следующие действия:
   var successHandler = function (data) {
+    // записывает данные сервера в переменную
     pins = data;
-    updatePins();
+    // запускает функцию отрисовки с полученными данными
+    window.pin.renderPins(pins);
     // console.log(data);
   };
-
-/** */
   // запускаем функцию по нажатию кнопки мыши, которая "активирует" форму(удаляя классы)
   mapPinMain.addEventListener('mousedown', function (evt) {
     evt.preventDefault();
@@ -63,8 +54,6 @@
       window.form.adForm.classList.remove('ad-form--disabled');
       window.server.load(successHandler, window.server.errorHandler);
     }
-
-
     // первоначальные координаты маркера
     var startCoords = {
       x: evt.clientX,

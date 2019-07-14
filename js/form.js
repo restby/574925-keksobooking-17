@@ -38,10 +38,22 @@
   });
   // находим элемент формы '#type'
   var type = ADFORM.querySelector('#type');
+  // находим элемент формы '#price'
+  var minCountPrice = ADFORM.querySelector('#price');
+
+  // var typeArray = type.querySelectorAll('option');
+  // var pricesArray = [0, 1000, 5000, 100000];
+  // var typeValue;
+  // var setAttributes = function () {
+  //   minCountPrice.setAttribute('min', 'минимальная цена за ночь');
+  //   minCountPrice.setAttribute('placeholder', ' ');
+  // };
   // создаем функцию которая будет по изменению значения select изменять минимальное значения цены и первоначальную цену
   type.onchange = function () {
-    // находим элемент формы '#price'
-    var minCountPrice = ADFORM.querySelector('#price');
+    // if (typeArray)
+    // typeValue = type.value;
+    // setAttributes();
+
     // запускаем проверку (на тип жилья) которая изменяет минимальное значения цены и первоначальную цену
     if (type.value === 'bungalo') {
       minCountPrice.setAttribute('min', 'минимальная цена за ночь 0');
