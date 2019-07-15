@@ -44,6 +44,7 @@
   // var typeArray = type.querySelectorAll('option');
   // var pricesArray = [0, 1000, 5000, 100000];
   // var typeValue;
+
   // var setAttributes = function () {
   //   minCountPrice.setAttribute('min', 'минимальная цена за ночь');
   //   minCountPrice.setAttribute('placeholder', ' ');
