@@ -41,6 +41,7 @@
   };
   // отдаем наружу функцию - рендер
   window.pin = {
-    renderPins: renderPins
+    renderPins: renderPins,
+    mapPins: mapPins
   };
 })();
