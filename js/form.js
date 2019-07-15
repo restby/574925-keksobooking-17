@@ -37,22 +37,34 @@
     }
   });
   // находим элемент формы '#type'
-  var optionTypeSelected = ADFORM.querySelector('#type');
+  var type = ADFORM.querySelector('#type');
+  // находим элемент формы '#price'
+  var minCountPrice = ADFORM.querySelector('#price');
+
+  // var typeArray = type.querySelectorAll('option');
+  // var pricesArray = [0, 1000, 5000, 100000];
+  // var typeValue;
+  // var setAttributes = function () {
+  //   minCountPrice.setAttribute('min', 'минимальная цена за ночь');
+  //   minCountPrice.setAttribute('placeholder', ' ');
+  // };
   // создаем функцию которая будет по изменению значения select изменять минимальное значения цены и первоначальную цену
-  optionTypeSelected.onchange = function () {
-    // находим элемент формы '#price'
-    var minCountPrice = ADFORM.querySelector('#price');
+  type.onchange = function () {
+    // if (typeArray)
+    // typeValue = type.value;
+    // setAttributes();
+
     // запускаем проверку (на тип жилья) которая изменяет минимальное значения цены и первоначальную цену
-    if (optionTypeSelected.value === 'bungalo') {
+    if (type.value === 'bungalo') {
       minCountPrice.setAttribute('min', 'минимальная цена за ночь 0');
       minCountPrice.setAttribute('placeholder', '0');
-    } else if (optionTypeSelected.value === 'flat') {
+    } else if (type.value === 'flat') {
       minCountPrice.setAttribute('min', 'минимальная цена за ночь 1000');
       minCountPrice.setAttribute('placeholder', '1000');
-    } else if (optionTypeSelected.value === 'house') {
+    } else if (type.value === 'house') {
       minCountPrice.setAttribute('min', 'минимальная цена за ночь 5000');
       minCountPrice.setAttribute('placeholder', '5000');
-    } else if (optionTypeSelected.value === 'palace') {
+    } else if (type.value === 'palace') {
       minCountPrice.setAttribute('min', 'минимальная цена за ночь 10000');
       minCountPrice.setAttribute('placeholder', '10000');
     }
