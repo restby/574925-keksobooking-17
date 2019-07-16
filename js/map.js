@@ -43,7 +43,7 @@
     pins = data;
     // запускает функцию отрисовки с полученными данными
     window.pin.renderPins(pins);
-    // console.log(data);
+    console.log(data);
     window.card.renderCard(pins);
   };
   // запускаем функцию по нажатию кнопки мыши, которая "активирует" форму(удаляя классы)

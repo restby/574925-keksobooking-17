@@ -32,26 +32,41 @@
 
     // Время заезда и выезда offer.checkin и offer.checkout в блок.popup__text--time строкой вида Заезд после { { offer.checkin } }, выезд до { { offer.checkout } }.Например, заезд после 14: 00, выезд до 12: 00.
 
-
     // формирует удобства объявления
-    // находим контейнер - список "фишек"
+    // находим контейнер
     var featuresList = cardElement.querySelector('.popup__features');
     // очищаем контейнер
     featuresList.innerHTML = '';
-    // получаем массив значений фишек с сервера
+    // получаем массив значений с сервера
     var pinOfferFeaturesArr = pin.offer.features;
-    // запускаем цикл в котором формируем название класса используя значение из массива с сервера, создает тег <li> и вставляет его в контейнер
-    for (var i = 0; i < pinOfferFeaturesArr.length; i++) {
-      var feature = 'popup__feature--' + pinOfferFeaturesArr[i];
+    // перебираем массив с сервера в котором формируем название класса, создает тег и вставляем его в контейнер
+    pinOfferFeaturesArr.forEach(function (it) {
+      var feature = 'popup__feature--' + it;
       // создаем tag <li>, применяем к нему сформированный класс и вставляем его в контейнер
       var tagLi = document.createElement('li');
       tagLi.className = 'popup__feature ' + feature;
       featuresList.appendChild(tagLi);
-    }
-
+    });
+    // формирует список описание объявления
     cardElement.querySelector('.popup__description').textContent = pin.offer.description;
-    // В блок.popup__photos выведите все фотографии из списка offer.photos.Каждая из строк массива photos должна записываться как src соответствующего изображения.
-    // cardElement.querySelector('.popup__photos').textContent = pin.offer.description;
+    // формирует список фотографий объявления
+    // находим контейнер
+    var photoList = cardElement.querySelector('.popup__photos');
+    // очищаем контейнер
+    photoList.innerHTML = '';
+    // получаем массив значений с сервера
+    var pinOfferPhotoArr = pin.offer.photos;
+    // перебираем массив с сервера в котором создаем тег даем название класса, прописываем атрибуты, и вставляем его в контейнер
+    pinOfferPhotoArr.forEach(function (it) {
+      // создаем tag <img> и вставляем его в контейнер
+      var tagImg = document.createElement('img');
+      tagImg.className = 'popup__photo';
+      tagImg.setAttribute('src', it);
+      tagImg.setAttribute('alt', 'фотография жилья');
+      tagImg.setAttribute('width', '45');
+      tagImg.setAttribute('height', '40');
+      photoList.appendChild(tagImg);
+    });
     return cardElement;
   };
   // саздаем функуцию, которая отрисовывает объявления
