@@ -33,31 +33,22 @@
     // Время заезда и выезда offer.checkin и offer.checkout в блок.popup__text--time строкой вида Заезд после { { offer.checkin } }, выезд до { { offer.checkout } }.Например, заезд после 14: 00, выезд до 12: 00.
 
 
-    // popup__feature popup__feature--wifi
     // формирует удобства объявления
+    // находим контейнер - список "фишек"
     var featuresList = cardElement.querySelector('.popup__features');
-    var faeturesItemArr = featuresList.querySelectorAll('.popup__feature');
-
+    // очищаем контейнер
+    featuresList.innerHTML = '';
+    // получаем массив значений фишек с сервера
     var pinOfferFeaturesArr = pin.offer.features;
+    // запускаем цикл в котором формируем название класса используя значение из массива с сервера, создает тег <li> и вставляет его в контейнер
     for (var i = 0; i < pinOfferFeaturesArr.length; i++) {
       var feature = 'popup__feature--' + pinOfferFeaturesArr[i];
-      console.log(feature);
-      for (var j = 0; j < faeturesItemArr.length; j++) {
-        if (!faeturesItemArr[j].classList.contains(feature)) {
-          // faeturesItemArr[j].style.display = 'none';
-          console.log(feature + ' NO');
-        } else {
-          console.log(feature + ' YES');
-        }
-      }
+      // создаем tag <li>, применяем к нему сформированный класс и вставляем его в контейнер
+      var tagLi = document.createElement('li');
+      tagLi.className = 'popup__feature ' + feature;
+      featuresList.appendChild(tagLi);
     }
-    
-    // var nameClass = 'popup__feature--wifi';
-    // faeturesItemArr.forEach(function (it) {
-    //   if (!it.classList.contains(nameClass)) {
-    //     it.style.display = 'none';
-    //   }
-    // });
+
     cardElement.querySelector('.popup__description').textContent = pin.offer.description;
     // В блок.popup__photos выведите все фотографии из списка offer.photos.Каждая из строк массива photos должна записываться как src соответствующего изображения.
     // cardElement.querySelector('.popup__photos').textContent = pin.offer.description;
@@ -65,10 +56,9 @@
   };
   // саздаем функуцию, которая отрисовывает объявления
   var renderCard = function (data) {
-    // console.log(data);
     var fragment = document.createDocumentFragment();
     for (var i = 0; i < data.length; i++) {
-      if (i === 7) {
+      if (i === 0) {
         fragment.appendChild(addOfferData(data[i]));
       }
     }
