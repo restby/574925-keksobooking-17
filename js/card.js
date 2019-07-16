@@ -37,21 +37,30 @@
     // формирует удобства объявления
     var featuresList = cardElement.querySelector('.popup__features');
     var faeturesItemArr = featuresList.querySelectorAll('.popup__feature');
-    var pinOfferFeaturesArr = pin.offer.features;
-    pinOfferFeaturesArr.forEach(function (it) {
-      var nameClass = 'popup__feature--' + it;
-    });
-    var wifi = 'wifi';
-    faeturesItemArr.forEach(function (it) {
-      if (!it.classList.contains('popup__feature--' + wifi)) {
-        // console.log('НЕ СОДЕРЖИТ' + 'popup__feature--' + wifi);
-        it.style.display = 'none';
-      }
-    });
 
+    var pinOfferFeaturesArr = pin.offer.features;
+    for (var i = 0; i < pinOfferFeaturesArr.length; i++) {
+      var feature = 'popup__feature--' + pinOfferFeaturesArr[i];
+      console.log(feature);
+      for (var j = 0; j < faeturesItemArr.length; j++) {
+        if (!faeturesItemArr[j].classList.contains(feature)) {
+          // faeturesItemArr[j].style.display = 'none';
+          console.log(feature + ' NO');
+        } else {
+          console.log(feature + ' YES');
+        }
+      }
+    }
+    
+    // var nameClass = 'popup__feature--wifi';
+    // faeturesItemArr.forEach(function (it) {
+    //   if (!it.classList.contains(nameClass)) {
+    //     it.style.display = 'none';
+    //   }
+    // });
     cardElement.querySelector('.popup__description').textContent = pin.offer.description;
     // В блок.popup__photos выведите все фотографии из списка offer.photos.Каждая из строк массива photos должна записываться как src соответствующего изображения.
-
+    // cardElement.querySelector('.popup__photos').textContent = pin.offer.description;
     return cardElement;
   };
   // саздаем функуцию, которая отрисовывает объявления
