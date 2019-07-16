@@ -33,24 +33,28 @@
     // Время заезда и выезда offer.checkin и offer.checkout в блок.popup__text--time строкой вида Заезд после { { offer.checkin } }, выезд до { { offer.checkout } }.Например, заезд после 14: 00, выезд до 12: 00.
 
 
+
     // popup__feature popup__feature--wifi
     // формирует удобства объявления
-    // var featuresList = cardElement.querySelector('.popup__features');
-    // var faeturesItemArr = featuresList.querySelectorAll('.popup__feature');
+    var featuresList = cardElement.querySelector('.popup__features');
+    // featuresList.innerHTML = '';
     var pinOfferFeaturesArr = pin.offer.features;
-    pinOfferFeaturesArr.forEach(function (it) {
-      var element = '--' + it;
-      console.log(element);
-      return element;
-    });
-    // console.log(pinOfferFeaturesArr);
-    // console.log(faeturesItemArr);
-    
-
-    // faeturesItemArr.forEach(function (it) {
-    //
+    // pinOfferFeaturesArr.forEach(function (it) {
+    //   var element = '--' + it;
+    //   console.log(element);
+    //   return element;
     // });
-    // cardElement.querySelector('.popup__features').textContent = pin.offer.features;
+    // var faeturesItemArr = featuresList.querySelectorAll('.popup__feature');
+    // for (var i = 0; i < faeturesItemArr.length; i++) {
+    //   if (!faeturesItemArr[i].classList.contains('popup__feature' + /*element*/ '-- wifi')) {
+    //     faeturesItemArr[i].style.display = 'none';
+    //   }
+    // }
+    // for (var i = 0; i < pinOfferFeaturesArr.length; i++) {
+      // console.log(i);
+      // var faeturesItemArr = featuresList.querySelectorAll('.popup__feature');
+      // faeturesItemArr.classList.add('popup__feature' + element);
+    // }
 
 
 
