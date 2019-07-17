@@ -15,6 +15,7 @@
     cardElement.querySelector('.popup__text--address').textContent = pin.offer.address;
     // формирует цену объявления
     cardElement.querySelector('.popup__text--price').textContent = pin.offer.price + '₽/ночь';
+    // формирует тип жилья в объявлении
     // создаем массив типов объявлений
     var typeOfferArray = ['flat', 'bungalo', 'house', 'palace'];
     // создаем массив-транслит типов объявлений
@@ -25,13 +26,11 @@
       typeIndex.push(it);
     });
     var pinOfferType = typeTranslitOfferArray[typeOfferArray.indexOf(pin.offer.type)];
-    // формирует тип объявления
     cardElement.querySelector('.popup__type').textContent = pinOfferType;
-
-    // Выведите количество гостей и комнат offer.rooms и offer.guests в блок.popup__text--capacity строкой вида { { offer.rooms } } комнаты для { { offer.guests } } гостей.Например, 2 комнаты для 3 гостей.
-
-    // Время заезда и выезда offer.checkin и offer.checkout в блок.popup__text--time строкой вида Заезд после { { offer.checkin } }, выезд до { { offer.checkout } }.Например, заезд после 14: 00, выезд до 12: 00.
-
+    // формирует количество комнат и гостей в объявлении
+    cardElement.querySelector('.popup__text--capacity').textContent = pin.offer.rooms + ' комнаты' + ' для ' + pin.offer.guests + ' гостей';
+    // формирует время заезда и выезда в объявлении
+    cardElement.querySelector('.popup__text--time').textContent = 'Заезд после ' + pin.offer.checkin + ', выезд до  ' + pin.offer.checkout;
     // формирует удобства объявления
     // находим контейнер
     var featuresList = cardElement.querySelector('.popup__features');
@@ -47,7 +46,7 @@
       tagLi.className = 'popup__feature ' + feature;
       featuresList.appendChild(tagLi);
     });
-    // формирует список описание объявления
+    // формирует описание объявления
     cardElement.querySelector('.popup__description').textContent = pin.offer.description;
     // формирует список фотографий объявления
     // находим контейнер
@@ -60,16 +59,20 @@
     pinOfferPhotoArr.forEach(function (it) {
       // создаем tag <img> и вставляем его в контейнер
       var tagImg = document.createElement('img');
+      // прописываем атрибуты
       tagImg.className = 'popup__photo';
       tagImg.setAttribute('src', it);
       tagImg.setAttribute('alt', 'фотография жилья');
       tagImg.setAttribute('width', '45');
       tagImg.setAttribute('height', '40');
+      // вставляем его в контейнер
       photoList.appendChild(tagImg);
     });
+    // Замените фото аватарки пользователя
+    cardElement.querySelector('.popup__avatar').setAttribute('src', pin.author.avatar);
     return cardElement;
   };
-  // саздаем функуцию, которая отрисовывает объявления
+  // саздаем функуцию, которая отрисовывает объявления (именно первое)
   var renderCard = function (data) {
     var fragment = document.createDocumentFragment();
     for (var i = 0; i < data.length; i++) {
