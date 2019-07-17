@@ -3,13 +3,12 @@
   var map = document.querySelector('.map');
   var mapFilterContainer = map.querySelector('.map__filters-container');
   var cardTemplate = document.querySelector('#card');
-  var closeBtn = document.querySelector('.popup__close');
   // функция которая формирует по данным с сервера структура объявления
   var addOfferData = function (pin) {
     // копирует всю начинку шаблона
-    var card = cardTemplate.content.cloneNode(true);
+    var cardContent = cardTemplate.content.cloneNode(true);
     // в шаблоне находит структуру объявления
-    var cardElement = card.querySelector('.map__card');
+    var cardElement = cardContent.querySelector('.map__card');
     // формирует название объявления
     cardElement.querySelector('.popup__title').textContent = pin.offer.title;
     // формирует адрес объявления
@@ -69,52 +68,62 @@
       // вставляем его в контейнер
       photoList.appendChild(tagImg);
     });
-    // Замените фото аватарки пользователя
+    // Заменяет фото аватарки пользователя
     cardElement.querySelector('.popup__avatar').setAttribute('src', pin.author.avatar);
+
+    // находим кнопку закрыть и вешаем событие,которое по клику удаляет карточку
+    var closeBtn = cardElement.querySelector('.popup__close');
+    closeBtn.addEventListener('click', function (evt) {
+      evt.preventDefault();
+      cardElement.style.display = 'none';
+    });
+
+
     return cardElement;
   };
 
 
-
   /*
-    // функция - закрываем окно по клавише ESC
-    var onPopupEscPress = function (evt) {
-      if (userNameInput !== document.activeElement) {
-        window.util.isEscEvent(evt, closePopup);
-      }
-    };
-
-    // открываем окно по клику на кнопку
-    setupOpen.addEventListener('click', function () {
-      openPopup();
-    });
-
-    // открываем окно по клавише ENTER по иконке
-    iconDialog.addEventListener('keydown', function (evt) {
-      window.util.isEnterEvent(evt, openPopup);
-    });
-
-    // закрываем окно по клику на кнопку
-    setupClose.addEventListener('click', function () {
-      closePopup();
-    });
-
-    // закрываем окно по клавише ENTER по кнопке закрытия
-    setupClose.addEventListener('keydown', function (evt) {
-      window.util.isEnterEvent(evt, closePopup);
-    });
-
-    // функция - закрываем окно и удаляет обработчик события, который закрывает окно по клавише ESC
-    var closePopup = function () {
-      window.util.setup.classList.add('hidden');
-      // удаляет обработчик события, который закрывает окно по клавише ESC
-      document.removeEventListener('keydown', onPopupEscPress);
-    };
-
-    
+    // функция - открываем окно и добавляем обработчик события, который закрывает окно по клавише ESC
+  var openPopup = function () {
+    window.util.setup.classList.remove('hidden');
+    // добавляет обработчик события, который закрывает окно по клавише ESC
+    document.addEventListener('keydown', onPopupEscPress);
+    // возвращаем окно в первоначальное положжение
+    window.util.setup.style.left = START_LEFT_POSITION + 'px';
+    window.util.setup.style.top = START_TOP_POSITION + 'px';
+  };
+  // находим поле ввода имени мага
+  var userNameInput = window.util.setup.querySelector('.setup-user-name');
+  // функция - закрываем окно по клавише ESC
+  var onPopupEscPress = function (evt) {
+    if (userNameInput !== document.activeElement) {
+      window.util.isEscEvent(evt, closePopup);
+    }
+  };
+  // открываем окно по клику на кнопку
+  setupOpen.addEventListener('click', function () {
+    openPopup();
+  });
+  // открываем окно по клавише ENTER по иконке
+  iconDialog.addEventListener('keydown', function (evt) {
+    window.util.isEnterEvent(evt, openPopup);
+  });
+  // закрываем окно по клику на кнопку
+  setupClose.addEventListener('click', function () {
+    closePopup();
+  });
+  // закрываем окно по клавише ENTER по кнопке закрытия
+  setupClose.addEventListener('keydown', function (evt) {
+    window.util.isEnterEvent(evt, closePopup);
+  });
+  // функция - закрываем окно и удаляет обработчик события, который закрывает окно по клавише ESC
+  var closePopup = function () {
+    window.util.setup.classList.add('hidden');
+    // удаляет обработчик события, который закрывает окно по клавише ESC
+    document.removeEventListener('keydown', onPopupEscPress);
+  };
   */
-
-
   // саздаем функуцию, которая отрисовывает объявления (именно первое)
   var renderCard = function (data) {
     var fragment = document.createDocumentFragment();

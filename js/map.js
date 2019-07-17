@@ -44,7 +44,18 @@
     // запускает функцию отрисовки с полученными данными
     window.pin.renderPins(pins);
     console.log(data);
-    window.card.renderCard(pins);
+    // window.card.renderCard(pins);
+    var pinsArr = document.querySelectorAll('.map__pin');
+    console.log(pinsArr);
+    pinsArr.forEach(function (it) {
+      if (!it.classList.contains('map__pin--main')) {
+        it.addEventListener('click', function (e) {
+          e.preventDefault();
+          window.card.renderCard(pins);
+          // console.log('yes');
+        });
+      }
+    });
   };
   // запускаем функцию по нажатию кнопки мыши, которая "активирует" форму(удаляя классы)
   mapPinMain.addEventListener('mousedown', function (evt) {
