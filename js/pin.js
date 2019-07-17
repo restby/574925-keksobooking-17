@@ -22,7 +22,6 @@
   };
   // создаем функцию-рендер, которая получает в параметр данные с сервера и выполняет следующие действия:
   var renderPins = function (data) {
-    // console.log(data);
     // устанавливает количество отображаемых меток
     var takeNumber = data.length > 5 ? 5 : data.length;
     // блок очистки карты при смене типа жилья:
@@ -41,6 +40,7 @@
   };
   // отдаем наружу функцию - рендер
   window.pin = {
-    renderPins: renderPins
+    renderPins: renderPins,
+    mapPins: mapPins
   };
 })();

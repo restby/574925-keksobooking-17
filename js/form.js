@@ -8,15 +8,15 @@
   var selectArr = document.querySelectorAll('select');
   // создаем функцию, которая будет перебирать массив / коллекцию и каждому элементу добавлять атрибут 'disabled'
   var setAttributeDisabled = function (arr) {
-    for (var i = 0; i < arr.length; i++) {
-      arr[i].setAttribute('disabled', '');
-    }
+    arr.forEach(function (it) {
+      it.setAttribute('disabled', '');
+    });
   };
   // создаем функцию, которая будет перебирать массив / коллекцию и у каждого элемента удалять атрибут 'disabled'
   var removeAttributeDisabled = function (arr) {
-    for (var i = 0; i < arr.length; i++) {
-      arr[i].removeAttribute('disabled', '');
-    }
+    arr.forEach(function (it) {
+      it.removeAttribute('disabled', '');
+    });
   };
   // добавлят атрибут 'disabled' всем элементам 'fieldset'
   setAttributeDisabled(fieldsetArr);
@@ -25,6 +25,8 @@
   // находим элемент формы '#title'
   var titleInput = ADFORM.querySelector('#title');
   // запускаем код валидации на кол-во символов с  выдачей сообщений
+
+  /* можно ли тут как-то исправить???????*/
   titleInput.addEventListener('invalid', function () {
     if (titleInput.validity.tooShort) {
       titleInput.setCustomValidity('Заголовок объявления должен состоять минимум из 30 символов');
@@ -40,34 +42,24 @@
   var type = ADFORM.querySelector('#type');
   // находим элемент формы '#price'
   var minCountPrice = ADFORM.querySelector('#price');
-
-  // var typeArray = type.querySelectorAll('option');
-  // var pricesArray = [0, 1000, 5000, 100000];
-  // var typeValue;
-  // var setAttributes = function () {
-  //   minCountPrice.setAttribute('min', 'минимальная цена за ночь');
-  //   minCountPrice.setAttribute('placeholder', ' ');
-  // };
-  // создаем функцию которая будет по изменению значения select изменять минимальное значения цены и первоначальную цену
+  // создаем массив минимальных цен для атрибутов min и placeholder
+  var pricesArray = [0, 1000, 5000, 100000];
+  // создаем функцию, которая будет добавлять в атрибуты min и placeholder у элемента формы '#price' значение из массива цен
+  var setAttributesMinAndPlaceholder = function (item) {
+    minCountPrice.setAttribute('min', item);
+    minCountPrice.setAttribute('placeholder', item);
+  };
+  // находим все варианты значений элемента формы '#type'
+  var typeArray = type.querySelectorAll('option');
+  // создаем массив из индексов всех вариантов значений элемента формы '#type'
+  var typeOptionValue = [];
+  typeArray.forEach(function (it) {
+    typeOptionValue.push(it.value);
+  });
+  // создаем функцию которая будет по изменению значения select изменять минимальное значения цены и подпись в поле формы
   type.onchange = function () {
-    // if (typeArray)
-    // typeValue = type.value;
-    // setAttributes();
-
-    // запускаем проверку (на тип жилья) которая изменяет минимальное значения цены и первоначальную цену
-    if (type.value === 'bungalo') {
-      minCountPrice.setAttribute('min', 'минимальная цена за ночь 0');
-      minCountPrice.setAttribute('placeholder', '0');
-    } else if (type.value === 'flat') {
-      minCountPrice.setAttribute('min', 'минимальная цена за ночь 1000');
-      minCountPrice.setAttribute('placeholder', '1000');
-    } else if (type.value === 'house') {
-      minCountPrice.setAttribute('min', 'минимальная цена за ночь 5000');
-      minCountPrice.setAttribute('placeholder', '5000');
-    } else if (type.value === 'palace') {
-      minCountPrice.setAttribute('min', 'минимальная цена за ночь 10000');
-      minCountPrice.setAttribute('placeholder', '10000');
-    }
+    // получаем индекс выбранного значения у элемента формы '#price' и устанавливаем соответствующий ему индекс из массива цен
+    setAttributesMinAndPlaceholder(pricesArray[typeOptionValue.indexOf(type.value)]);
   };
   // находим элемент формы '#timein'
   var timeIn = document.querySelector('#timein');
