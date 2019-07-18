@@ -15,10 +15,11 @@
   };
   // создаем массив, куда сохраним позже полученные данные с сервера
   var pins = [];
-
+  // объявляем функцию, которая принимает в себя кол-во меток, на которые вешает событие клика для запуска функции отрисовки карточки объявления
   var addCard = function (array) {
     var pinsArr = document.querySelectorAll('.map__pin');
     pinsArr.forEach(function (it) {
+      // проверяем что нажатие произошло не на основную метку
       if (!it.classList.contains('map__pin--main')) {
         it.addEventListener('click', function (e) {
           e.preventDefault();
@@ -32,7 +33,6 @@
     var sameTypePins = pins.filter(function (it) {
       return it.offer.type === housingTypeValue;
     });
-    console.log(sameTypePins);
     // вызывает внешнюю функцию-рендер, которая принимает в себя отфильтрованные данные
     window.pin.renderPins(sameTypePins);
     addCard(sameTypePins);
@@ -58,8 +58,6 @@
     pins = data;
     // запускает функцию отрисовки с полученными данными
     window.pin.renderPins(pins);
-    console.log(data);
-    // window.card.renderCard(pins);
     addCard(pins);
   };
   // запускаем функцию по нажатию кнопки мыши, которая "активирует" форму(удаляя классы)
