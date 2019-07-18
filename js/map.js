@@ -15,6 +15,19 @@
   };
   // создаем массив, куда сохраним позже полученные данные с сервера
   var pins = [];
+
+  var addCard = function (array) {
+    var pinsArr = document.querySelectorAll('.map__pin');
+    console.log(pinsArr);
+    pinsArr.forEach(function (it) {
+      if (!it.classList.contains('map__pin--main')) {
+        it.addEventListener('click', function (e) {
+          e.preventDefault();
+          window.card.renderCard(array);
+        });
+      }
+    });
+  };
   // функция которая фильтрует полученные данные с сервера и перерисовывает метки в зависимости от выбора типа жилья
   var updatePins = function () {
     var sameTypePins = pins.filter(function (it) {
@@ -22,6 +35,7 @@
     });
     // вызывает внешнюю функцию-рендер, которая принимает в себя отфильтрованные данные
     window.pin.renderPins(sameTypePins);
+    addCard(sameTypePins);
   };
   // переменная где будет храниться значение выбора типа жилья
   var housingTypeValue;
@@ -32,6 +46,7 @@
     // запускаем проверку (на тип жилья)
     if (housingType.value === 'any') {
       window.pin.renderPins(pins);
+      addCard(pins);
     } else {
       housingTypeValue = housingType.value;
       updatePins();
@@ -45,17 +60,7 @@
     window.pin.renderPins(pins);
     console.log(data);
     // window.card.renderCard(pins);
-    var pinsArr = document.querySelectorAll('.map__pin');
-    console.log(pinsArr);
-    pinsArr.forEach(function (it) {
-      if (!it.classList.contains('map__pin--main')) {
-        it.addEventListener('click', function (e) {
-          e.preventDefault();
-          window.card.renderCard(pins);
-          // console.log('yes');
-        });
-      }
-    });
+    addCard(pins);
   };
   // запускаем функцию по нажатию кнопки мыши, которая "активирует" форму(удаляя классы)
   mapPinMain.addEventListener('mousedown', function (evt) {
