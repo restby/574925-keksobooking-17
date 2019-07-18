@@ -60,11 +60,12 @@
       // создаем tag <img> и вставляем его в контейнер
       var tagImg = document.createElement('img');
       // прописываем атрибуты
-      tagImg.className = 'popup__photo';
-      tagImg.setAttribute('src', it);
-      tagImg.setAttribute('alt', 'фотография жилья');
-      tagImg.setAttribute('width', '45');
-      tagImg.setAttribute('height', '40');
+      function setAttributes(el, options) {
+        Object.keys(options).forEach(function (attr) {
+          el.setAttribute(attr, options[attr]);
+        });
+      }
+      setAttributes(tagImg, {'class': 'popup__photo', 'src': it, 'alt': 'фотография жилья', 'width': '45', 'height': '40'});
       // вставляем его в контейнер
       photoList.appendChild(tagImg);
     });
@@ -77,8 +78,6 @@
       evt.preventDefault();
       cardElement.style.display = 'none';
     });
-
-
     return cardElement;
   };
 
@@ -124,6 +123,8 @@
     document.removeEventListener('keydown', onPopupEscPress);
   };
   */
+
+
   // саздаем функуцию, которая отрисовывает объявления (именно первое)
   var renderCard = function (data) {
     var fragment = document.createDocumentFragment();

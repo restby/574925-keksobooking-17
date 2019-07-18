@@ -18,7 +18,6 @@
 
   var addCard = function (array) {
     var pinsArr = document.querySelectorAll('.map__pin');
-    console.log(pinsArr);
     pinsArr.forEach(function (it) {
       if (!it.classList.contains('map__pin--main')) {
         it.addEventListener('click', function (e) {
@@ -33,6 +32,7 @@
     var sameTypePins = pins.filter(function (it) {
       return it.offer.type === housingTypeValue;
     });
+    console.log(sameTypePins);
     // вызывает внешнюю функцию-рендер, которая принимает в себя отфильтрованные данные
     window.pin.renderPins(sameTypePins);
     addCard(sameTypePins);
