@@ -29,8 +29,7 @@
     document.querySelectorAll('.map__pin').forEach(function (it) {
       if (!it.classList.contains('map__pin--main')) {
         // удаляем метку
-        // it.style.display = 'none';
-        console.log(it);
+        it.style.display = 'none';
       }
     });
     // запускает цикл от 0 до количества отображаемых меток установленных ранее
