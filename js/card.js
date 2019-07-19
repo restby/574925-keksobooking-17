@@ -58,12 +58,27 @@
     });
     /** */
     cardElement.querySelector('.popup__avatar').setAttribute('src', pin.author.avatar);
-
-    // ВРЕМЕННО! находим кнопку закрыть и вешаем событие,которое по клику удаляет карточку
     var closeBtn = cardElement.querySelector('.popup__close');
-    closeBtn.addEventListener('click', function (evt) {
-      evt.preventDefault();
+    // функция которая по клавише ESC запускает функцию, которая удаляет элемент
+    var onPopupEscPress = function (evt) {
+      window.util.isEscEvent(evt, closePopup);
+    };
+    // функция которая добавляет обработчик события по клавише ESC
+    (function () {
+      document.addEventListener('keydown', onPopupEscPress);
+    })();
+    // функция которая удаляет элемент и удаляет обработчик события по клавише ESC
+    var closePopup = function () {
       map.removeChild(cardElement);
+      document.removeEventListener('keydown', onPopupEscPress);
+    };
+    // закрывает карточку по клику на кнопке
+    closeBtn.addEventListener('click', function () {
+      closePopup();
+    });
+    // закрывает карточку по клавише ENTER на кнопке
+    closeBtn.addEventListener('keydown', function (evt) {
+      window.util.isEnterEvent(evt, closePopup);
     });
     return element;
   };
