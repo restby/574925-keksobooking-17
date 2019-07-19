@@ -27,7 +27,7 @@
     cardElement.querySelector('.popup__text--capacity').textContent = pin.offer.rooms + ' комнаты' + ' для ' + pin.offer.guests + ' гостей';
     cardElement.querySelector('.popup__text--time').textContent = 'Заезд после ' + pin.offer.checkin + ', выезд до  ' + pin.offer.checkout;
     // формирует удобства объявления
-    /** блок для формирования типа жилья */
+    /* блок для формирования типа жилья */
     var featuresList = cardElement.querySelector('.popup__features');
     featuresList.innerHTML = '';
     var pinOfferFeaturesArr = pin.offer.features;
@@ -38,7 +38,7 @@
       tagLi.className = 'popup__feature ' + feature;
       featuresList.appendChild(tagLi);
     });
-    /** */
+    /* */
     cardElement.querySelector('.popup__description').textContent = pin.offer.description;
     // формирует список фотографий объявления
     /** блок для формирования фотографий */
