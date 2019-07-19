@@ -4,20 +4,20 @@
     var xhr = new XMLHttpRequest();
     var URL = 'https://js.dump.academy/keksobooking/data';
     xhr.responseType = 'json';
-    // получаем данные с сервера
+    // получает данные с сервера
     xhr.addEventListener('load', function () {
-      // проверяем статус
+      // проверяет статус
       if (xhr.status === 200) {
         onSuccess(xhr.response);
       } else {
         onError('Статус ответа: ' + xhr.status + ' ' + xhr.statusText);
       }
     });
-    // выводим сообщение об ошибке в случае если ошибка соединения
+    // выводит сообщение об ошибке в случае если ошибка соединения
     xhr.addEventListener('error', function () {
       onError('Произошла ошибка соединения');
     });
-    // выводим сообщение об ошибке в случае если вышло время ожидания ответа
+    // выводит сообщение об ошибке в случае если вышло время ожидания ответа
     xhr.addEventListener('timeout', function () {
       onError('Запрос не успел выполниться за ' + xhr.timeout + 'мс');
     });
@@ -25,11 +25,9 @@
     xhr.open('GET', URL);
     xhr.send();
   };
-
-
   // функция ошибки - ответа сервера
   var errorHandler = function () {
-    // находим шаблон
+    // находит шаблон
     var errorTemplate = document.querySelector('#error').content.querySelector('.error');
     // функция перезагрузки страницы
     var refreshPage = function () {
@@ -40,13 +38,12 @@
       var errorElement = errorTemplate.cloneNode(true);
       return errorElement;
     };
-    // создаем контейнер
+    // создает контейнер
     var fragment = document.createDocumentFragment();
     fragment.appendChild(addErrorMessage());
     document.querySelector('.map__pins').appendChild(fragment);
     document.querySelector('.error__button').addEventListener('click', refreshPage);
   };
-
   window.server = {
     load: load,
     errorHandler: errorHandler
