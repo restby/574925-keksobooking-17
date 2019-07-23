@@ -31,6 +31,16 @@
       titleInput.setCustomValidity('');
     }
   });
+  // titleInput.addEventListener('input', function (evt) {
+  //   var target = evt.target;
+  //   if (target.value.length < 30) {
+  //     target.setCustomValidity('В заголовке объявления должно быть минимум 30 символов');
+  //   } else if (target.value.length > 200) {
+  //     target.setCustomValidity('В заголовке объявления должно быть максимум 200 символов');
+  //   } else {
+  //     target.setCustomValidity('');
+  //   }
+  // });
   /** */
   var typeInput = form.querySelector('#type');
   var priceInput = form.querySelector('#price');
@@ -60,6 +70,84 @@
   timeOutInput.onchange = function () {
     timeInInput.selectedIndex = this.selectedIndex;
   };
+
+
+  var roomNumberInput = form.querySelector('#room_number');
+  var capacityInput = form.querySelector('#capacity');
+  // var roomArr = roomNumberInput.querySelectorAll('option');
+  var capacityArr = capacityInput.querySelectorAll('option');
+  // массив из индексов всех вариантов значений элемента формы '#room_number'
+  // var roomNumberOptionValue = [];
+  // roomArr.forEach(function (it) {
+  //   roomNumberOptionValue.push(it.value);
+  // });
+  // console.log(roomNumberOptionValue);
+  // массив из индексов всех вариантов значений элемента формы '#capacity'
+  // var capacityOptionValue = [];
+  // capacityArr.forEach(function (it) {
+  //   capacityOptionValue.push(it.value);
+  // });
+  // console.log(capacityOptionValue);
+  roomNumberInput.onchange = function (evt) {
+    var target = evt.target;
+    // console.log();
+    if (parseInt(target.value, 10) === 1) {
+      capacityArr.forEach(function (it) {
+        it.setAttribute('disabled', '');
+        it.removeAttribute('selected', '');
+        if (parseInt(it.value, 10) < 2 && parseInt(it.value, 10) > 0) {
+          it.removeAttribute('disabled', '');
+          it.setAttribute('selected', '');
+        }
+      });
+    } else if (parseInt(target.value, 10) === 2) {
+      capacityArr.forEach(function (it) {
+        it.setAttribute('disabled', '');
+        it.removeAttribute('selected', '');
+        if (parseInt(it.value, 10) < 3 && parseInt(it.value, 10) > 0) {
+          it.removeAttribute('disabled', '');
+          it.setAttribute('selected', '');
+        }
+      });
+    } else if (parseInt(target.value, 10) === 3) {
+      capacityArr.forEach(function (it) {
+        it.setAttribute('disabled', '');
+        it.removeAttribute('selected', '');
+        if (parseInt(it.value, 10) < 4 && parseInt(it.value, 10) > 0) {
+          it.removeAttribute('disabled', '');
+          it.setAttribute('selected', '');
+        }
+      });
+    } else if (parseInt(target.value, 10) > 3) {
+      capacityArr.forEach(function (it) {
+        it.setAttribute('disabled', '');
+        it.removeAttribute('selected', '');
+        if (parseInt(it.value, 10) === 0) {
+          it.removeAttribute('disabled', '');
+          it.setAttribute('selected', '');
+        }
+      });
+    }
+    // capacityArr.forEach(function (it) {
+    //   it.setAttribute('disabled', '');
+    //   it.removeAttribute('selected', '');
+    //   if (parseInt(it.value, 10) === 2) {
+    //     it.removeAttribute('disabled', '');
+    //     it.setAttribute('selected', '');
+    //   }
+    // });
+    // for (var i = 0; i < capacityArr.length; i++) {
+    //   // console.log(capacityArr[i].value);
+    //   capacityArr[i].setAttribute('disabled', '');
+    //   capacityArr[i].removeAttribute('selected', '');
+    //   if (parseInt(capacityArr[i].value, 10) === 2) {
+    //     capacityArr[i].removeAttribute('disabled', '');
+    //     capacityArr[i].setAttribute('selected', '');
+    //   }
+    // }
+  };
+
+
   // функция которая вызывает функции удаляющие атрибут 'disabled' у всех элементам 'fieldset' и 'select'
   var editsForm = function () {
     removeAttributeDisabled(fieldsetArr);
