@@ -67,7 +67,24 @@
   // var roomArr = roomNumberInput.querySelectorAll('option');
   var capacityArr = capacityInput.querySelectorAll('option');
 
+  /** */
+  var capacityOptionValue = [];
+  capacityArr.forEach(function (it) {
+    capacityOptionValue.push(parseInt(it.value, 10));
+  });
+
   roomNumberInput.onchange = function () {
+    // capacityOptionValue.forEach(function (it) {
+    //   if (it <= parseInt(roomNumberInput.value, 10) && it !== 0) {
+    //     var count = it;
+    //     capacityArr.forEach(function (item) {
+    //       item.setAttribute('disabled', '');
+    //       if (parseInt(item.value, 10) === count) {
+    //         item.removeAttribute('disabled', '');
+    //       }
+    //     });
+    //   }
+    // });
 
     // capacityInput.setCustomValidity('');
     // capacityInput.setCustomValidity('1 комната — «для 1 гостя»');
