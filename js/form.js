@@ -66,18 +66,18 @@
   var capacityInput = form.querySelector('#capacity');
   var capacityArr = capacityInput.querySelectorAll('option');
 
+
+  /* КОД РАБОТАЕТ ТОЛЬКО ДЛЯ КОЛ-ВА КОМНАТ 1,2,3 С КОЛ-ВОМ КОМНАТ 100 НЕ ПОЛУЧАЕТСЯ */
   roomNumberInput.onchange = function () {
     capacityArr.forEach(function (it) {
-      it.setAttribute('disabled', '');
-      if (parseInt(it.value, 10) <= parseInt(roomNumberInput.value, 10) && parseInt(it.value, 10) !== 0) {
-        it.removeAttribute('disabled', '');
-      }
-      // it.removeAttribute('disabled', '');
-      // if (parseInt(it.value, 10) !== parseInt(roomNumberInput.value, 10) && parseInt(it.value, 10) > parseInt(roomNumberInput.value, 10) || parseInt(it.value, 10) === 0) {
-      //   it.setAttribute('disabled', '');
-      // } else if (parseInt(it.value, 10) === 0) {
+      // it.setAttribute('disabled', '');
+      // if (parseInt(it.value, 10) <= parseInt(roomNumberInput.value, 10) && parseInt(it.value, 10) !== 0) {
       //   it.removeAttribute('disabled', '');
       // }
+      it.removeAttribute('disabled', '');
+      if (parseInt(it.value, 10) !== parseInt(roomNumberInput.value, 10) && parseInt(it.value, 10) > parseInt(roomNumberInput.value, 10) || parseInt(it.value, 10) === 0) {
+        it.setAttribute('disabled', '');
+      }
     });
 
     // capacityInput.setCustomValidity('');
