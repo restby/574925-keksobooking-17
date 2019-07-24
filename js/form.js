@@ -64,27 +64,21 @@
   /** */
   var roomNumberInput = form.querySelector('#room_number');
   var capacityInput = form.querySelector('#capacity');
-  // var roomArr = roomNumberInput.querySelectorAll('option');
   var capacityArr = capacityInput.querySelectorAll('option');
 
-  /** */
-  var capacityOptionValue = [];
-  capacityArr.forEach(function (it) {
-    capacityOptionValue.push(parseInt(it.value, 10));
-  });
-
   roomNumberInput.onchange = function () {
-    // capacityOptionValue.forEach(function (it) {
-    //   if (it <= parseInt(roomNumberInput.value, 10) && it !== 0) {
-    //     var count = it;
-    //     capacityArr.forEach(function (item) {
-    //       item.setAttribute('disabled', '');
-    //       if (parseInt(item.value, 10) === count) {
-    //         item.removeAttribute('disabled', '');
-    //       }
-    //     });
-    //   }
-    // });
+    capacityArr.forEach(function (it) {
+      it.setAttribute('disabled', '');
+      if (parseInt(it.value, 10) <= parseInt(roomNumberInput.value, 10) && parseInt(it.value, 10) !== 0) {
+        it.removeAttribute('disabled', '');
+      }
+      // it.removeAttribute('disabled', '');
+      // if (parseInt(it.value, 10) !== parseInt(roomNumberInput.value, 10) && parseInt(it.value, 10) > parseInt(roomNumberInput.value, 10) || parseInt(it.value, 10) === 0) {
+      //   it.setAttribute('disabled', '');
+      // } else if (parseInt(it.value, 10) === 0) {
+      //   it.removeAttribute('disabled', '');
+      // }
+    });
 
     // capacityInput.setCustomValidity('');
     // capacityInput.setCustomValidity('1 комната — «для 1 гостя»');
@@ -93,39 +87,39 @@
     // capacityInput.setCustomValidity('100 комнат — «не для гостей»');
 
 
-    if (parseInt(roomNumberInput.value, 10) === 1) {
-      capacityArr.forEach(function (it) {
-        it.setAttribute('disabled', '');
-        it.removeAttribute('selected', '');
-        if (parseInt(it.value, 10) > 0 && parseInt(it.value, 10) < 2) {
-          it.removeAttribute('disabled', '');
-        }
-      });
-    } else if (parseInt(roomNumberInput.value, 10) === 2) {
-      capacityArr.forEach(function (it) {
-        it.setAttribute('disabled', '');
-        it.removeAttribute('selected', '');
-        if (parseInt(it.value, 10) > 0 && parseInt(it.value, 10) < 3) {
-          it.removeAttribute('disabled', '');
-        }
-      });
-    } else if (parseInt(roomNumberInput.value, 10) === 3) {
-      capacityArr.forEach(function (it) {
-        it.setAttribute('disabled', '');
-        it.removeAttribute('selected', '');
-        if (parseInt(it.value, 10) > 0 && parseInt(it.value, 10) < 4) {
-          it.removeAttribute('disabled', '');
-        }
-      });
-    } else if (parseInt(roomNumberInput.value, 10) > 3) {
-      capacityArr.forEach(function (it) {
-        it.setAttribute('disabled', '');
-        it.removeAttribute('selected', '');
-        if (parseInt(it.value, 10) === 0) {
-          it.removeAttribute('disabled', '');
-        }
-      });
-    }
+    // if (parseInt(roomNumberInput.value, 10) === 1) {
+    //   capacityArr.forEach(function (it) {
+    //     it.setAttribute('disabled', '');
+    //     it.removeAttribute('selected', '');
+    //     if (parseInt(it.value, 10) > 0 && parseInt(it.value, 10) < 2) {
+    //       it.removeAttribute('disabled', '');
+    //     }
+    //   });
+    // } else if (parseInt(roomNumberInput.value, 10) === 2) {
+    //   capacityArr.forEach(function (it) {
+    //     it.setAttribute('disabled', '');
+    //     it.removeAttribute('selected', '');
+    //     if (parseInt(it.value, 10) > 0 && parseInt(it.value, 10) < 3) {
+    //       it.removeAttribute('disabled', '');
+    //     }
+    //   });
+    // } else if (parseInt(roomNumberInput.value, 10) === 3) {
+    //   capacityArr.forEach(function (it) {
+    //     it.setAttribute('disabled', '');
+    //     it.removeAttribute('selected', '');
+    //     if (parseInt(it.value, 10) > 0 && parseInt(it.value, 10) < 4) {
+    //       it.removeAttribute('disabled', '');
+    //     }
+    //   });
+    // } else if (parseInt(roomNumberInput.value, 10) > 3) {
+    //   capacityArr.forEach(function (it) {
+    //     it.setAttribute('disabled', '');
+    //     it.removeAttribute('selected', '');
+    //     if (parseInt(it.value, 10) === 0) {
+    //       it.removeAttribute('disabled', '');
+    //     }
+    //   });
+    // }
 
   };
   /** */
