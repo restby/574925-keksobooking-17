@@ -65,63 +65,63 @@
   var roomNumberInput = form.querySelector('#room_number');
   var capacityInput = form.querySelector('#capacity');
   var capacityArr = capacityInput.querySelectorAll('option');
+  /*
+  var guestsValueDict = {
+    '1' : '1',
+    '2' : '2',
+    '3' : '3',
+    '100' : '0'
+  };
+  var guestsAvailableDict = {
+    '1' : '1',
+    '2' : ['1', '2'],
+    '3' : ['1', '2', '3'],
+    '100' : '0'
+  };
+  roomNumberInput.onchange = function (room) {
+    capacityInput.value = guestsValueDict[room]
+  }
+  
+  if(guestsAvailableDict[room].indexOf(parseInt(it.value, 10) === -1) {
+    it.setAttribute('disabled', '');
+  })
+  */
+  var guestsValueDict = {
+    '1': '1',
+    '2': '2',
+    '3': '3',
+    '100': '0'
+  };
+  var guestsAvailableDict = {
+    '1': '1',
+    '2': ['1', '2'],
+    '3': ['1', '2', '3'],
+    '100': '0'
+  };
+
+
+  // capacityArr.forEach(function (it) {
+  //   if (guestsAvailableDict[room].indexOf(parseInt(it.value, 10)) === -1) {
+  //     it.setAttribute('disabled', '');
+  //   }
+  // });
+
 
   roomNumberInput.onchange = function () {
-    capacityArr.forEach(function (it) {
-      it.setAttribute('disabled', '');
-      if (parseInt(it.value, 10) <= parseInt(roomNumberInput.value, 10) && parseInt(it.value, 10) !== 0) {
-        it.removeAttribute('disabled', '');
-      }
-      // it.removeAttribute('disabled', '');
-      // if (parseInt(it.value, 10) !== parseInt(roomNumberInput.value, 10) && parseInt(it.value, 10) > parseInt(roomNumberInput.value, 10) || parseInt(it.value, 10) === 0) {
-      //   it.setAttribute('disabled', '');
-      // } else if (parseInt(it.value, 10) === 0) {
-      //   it.removeAttribute('disabled', '');
-      // }
-    });
-
-    // capacityInput.setCustomValidity('');
-    // capacityInput.setCustomValidity('1 комната — «для 1 гостя»');
-    // capacityInput.setCustomValidity('2 комнаты — «для 2 гостей» или «для 1 гостя»');
-    // capacityInput.setCustomValidity('3 комнаты — «для 3 гостей», «для 2 гостей» или «для 1 гостя»');
-    // capacityInput.setCustomValidity('100 комнат — «не для гостей»');
-
-
-    // if (parseInt(roomNumberInput.value, 10) === 1) {
-    //   capacityArr.forEach(function (it) {
-    //     it.setAttribute('disabled', '');
-    //     it.removeAttribute('selected', '');
-    //     if (parseInt(it.value, 10) > 0 && parseInt(it.value, 10) < 2) {
-    //       it.removeAttribute('disabled', '');
-    //     }
-    //   });
-    // } else if (parseInt(roomNumberInput.value, 10) === 2) {
-    //   capacityArr.forEach(function (it) {
-    //     it.setAttribute('disabled', '');
-    //     it.removeAttribute('selected', '');
-    //     if (parseInt(it.value, 10) > 0 && parseInt(it.value, 10) < 3) {
-    //       it.removeAttribute('disabled', '');
-    //     }
-    //   });
-    // } else if (parseInt(roomNumberInput.value, 10) === 3) {
-    //   capacityArr.forEach(function (it) {
-    //     it.setAttribute('disabled', '');
-    //     it.removeAttribute('selected', '');
-    //     if (parseInt(it.value, 10) > 0 && parseInt(it.value, 10) < 4) {
-    //       it.removeAttribute('disabled', '');
-    //     }
-    //   });
-    // } else if (parseInt(roomNumberInput.value, 10) > 3) {
-    //   capacityArr.forEach(function (it) {
-    //     it.setAttribute('disabled', '');
-    //     it.removeAttribute('selected', '');
-    //     if (parseInt(it.value, 10) === 0) {
-    //       it.removeAttribute('disabled', '');
-    //     }
-    //   });
-    // }
-
+    capacityInput.value = guestsValueDict[roomNumberInput.value];
   };
+  //   capacityArr.forEach(function (it) {
+  //     it.setAttribute('disabled', '');
+  //     if (parseInt(it.value, 10) <= parseInt(roomNumberInput.value, 10) && parseInt(it.value, 10) !== 0) {
+  //       it.removeAttribute('disabled', '');
+  //     }
+  //     // it.removeAttribute('disabled', '');
+  //     // if (parseInt(it.value, 10) !== parseInt(roomNumberInput.value, 10) && parseInt(it.value, 10) > parseInt(roomNumberInput.value, 10) || parseInt(it.value, 10) === 0) {
+  //     //   it.setAttribute('disabled', '');
+  //     // } else if (parseInt(it.value, 10) === 0) {
+  //     //   it.removeAttribute('disabled', '');
+  //     // }
+  //   });
   /** */
 
   var editsForm = function () {
