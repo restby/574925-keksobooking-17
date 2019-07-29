@@ -25,9 +25,21 @@
     xhr.open('GET', URL);
     xhr.send();
   };
+
+  // отправка формы
+  var upload = function (data, onSuccess) {
+    var URL = 'https://js.dump.academy/keksobooking';
+    var xhr = new XMLHttpRequest();
+    xhr.responseType = 'json';
+    xhr.addEventListener('load', function () {
+      onSuccess(xhr.response);
+    });
+    xhr.open('POST', URL);
+    xhr.send(data);
+  };
+
   // функция ошибки - ответа сервера
   var errorHandler = function () {
-    // находит шаблон
     var errorTemplate = document.querySelector('#error').content.querySelector('.error');
     // функция перезагрузки страницы
     var refreshPage = function () {
@@ -46,6 +58,7 @@
   };
   window.server = {
     load: load,
+    upload: upload,
     errorHandler: errorHandler
   };
 })();

@@ -3,6 +3,10 @@
   var form = document.querySelector('.ad-form');
   var fieldsetArr = document.querySelectorAll('fieldset');
   var selectArr = document.querySelectorAll('select');
+  var map = document.querySelector('.map');
+  var mainPin = document.querySelector('.map__pin--main');
+  var mainPinLeftPosition = mainPin.offsetLeft;
+  var mainPinTopPosition = mainPin.offsetTop;
   // функция, которая перебирает массив / коллекцию и каждому элементу добавлять атрибут 'disabled'
   var setAttributeDisabled = function (arr) {
     arr.forEach(function (it) {
@@ -20,6 +24,13 @@
   var titleInput = form.querySelector('#title');
   /** запускаем код валидации на кол-во символов с  выдачей сообщений */
   // можно ли тут как-то исправить???????*
+  /**
+   * var invalidMessages = {
+   *  tooShort: 'Заголовок объявления должен состоять минимум из 30 символов',
+   *  tooLong: 'Заголовок объявления не должен превышать 100 символов',
+   *  valueMissing: 'Обязательное поле'
+   * }
+   */
   titleInput.addEventListener('invalid', function () {
     if (titleInput.validity.tooShort) {
       titleInput.setCustomValidity('Заголовок объявления должен состоять минимум из 30 символов');
@@ -63,7 +74,7 @@
   /** */
   var roomNumberInput = form.querySelector('#room_number');
   var capacityInput = form.querySelector('#capacity');
-  var capacityArr = capacityInput.querySelectorAll('option');
+  // var capacityArr = capacityInput.querySelectorAll('option');
   /*
   var guestsValueDict = {
     '1' : '1',
@@ -80,35 +91,45 @@
   roomNumberInput.onchange = function (room) {
     capacityInput.value = guestsValueDict[room]
   }
-  
+
   if(guestsAvailableDict[room].indexOf(parseInt(it.value, 10) === -1) {
     it.setAttribute('disabled', '');
   })
   */
-  var guestsValueDict = {
-    '1': '1',
-    '2': '2',
-    '3': '3',
-    '100': '0'
-  };
-  var guestsAvailableDict = {
-    '1': '1',
-    '2': ['1', '2'],
-    '3': ['1', '2', '3'],
-    '100': '0'
-  };
+  // var guestsValueDict = {
+  //   '1': '1',
+  //   '2': '2',
+  //   '3': '3',
+  //   '100': '0'
+  // };
+  // var guestsAvailableDict = {
+  //   '1': '1',
+  //   '2': ['1', '2'],
+  //   '3': ['1', '2', '3'],
+  //   '100': '0'
+  // };
 
 
-  // capacityArr.forEach(function (it) {
-  //   if (guestsAvailableDict[room].indexOf(parseInt(it.value, 10)) === -1) {
-  //     it.setAttribute('disabled', '');
-  //   }
-  // });
+  // // capacityArr.forEach(function (it) {
+  // //   if (guestsAvailableDict[room].indexOf(parseInt(it.value, 10)) === -1) {
+  // //     it.setAttribute('disabled', '');
+  // //   }
+  // // });
+  // roomNumberInput.onchange = function (room) {
+  //   capacityInput.value = guestsValueDict[room];
 
+  //   capacityArr.forEach(function (it) {
+  //     if (guestsAvailableDict[room].indexOf(parseInt(it.value, 10)) === -1) {
+  //       it.setAttribute('disabled', '');
+  //     }
+  //   });
+  // };
 
   roomNumberInput.onchange = function () {
-    capacityInput.value = guestsValueDict[roomNumberInput.value];
+    capacityInput.value = roomNumberInput.value;
   };
+
+
   //   capacityArr.forEach(function (it) {
   //     it.setAttribute('disabled', '');
   //     if (parseInt(it.value, 10) <= parseInt(roomNumberInput.value, 10) && parseInt(it.value, 10) !== 0) {
@@ -126,8 +147,54 @@
     removeAttributeDisabled(fieldsetArr);
     removeAttributeDisabled(selectArr);
   };
+
+  // // функция ошибки - ответа сервера
+  // var errorHandler = function () {
+  //   // находит шаблон
+  //   var errorTemplate = document.querySelector('#error').content.querySelector('.error');
+  //   // функция перезагрузки страницы
+  //   var refreshPage = function () {
+  //     window.location.reload();
+  //   };
+  //   // функция которая копирует начинку шаблона Error
+  //   var addErrorMessage = function (_arr) {
+  //     var errorElement = errorTemplate.cloneNode(true);
+  //     return errorElement;
+  //   };
+  //   // создает контейнер
+  //   var fragment = document.createDocumentFragment();
+  //   fragment.appendChild(addErrorMessage());
+  //   document.querySelector('.map__pins').appendChild(fragment);
+  //   document.querySelector('.error__button').addEventListener('click', refreshPage);
+  // };
+
+  form.addEventListener('submit', function (evt) {
+    window.server.upload(new FormData(form), function () {
+      map.classList.add('map--faded');
+      form.classList.add('ad-form--disabled');
+      setAttributeDisabled(fieldsetArr);
+      setAttributeDisabled(selectArr);
+      document.querySelectorAll('.map__pin').forEach(function (it) {
+        if (!it.classList.contains('map__pin--main')) {
+          document.querySelector('.map__pins').removeChild(it);
+        }
+      });
+      document.querySelectorAll('.popup').forEach(function (it) {
+        map.removeChild(it);
+      });
+      titleInput.value = '';
+      priceInput.value = '';
+      mainPin.style.left = mainPinLeftPosition + 'px';
+      mainPin.style.top = mainPinTopPosition + 'px';
+
+    });
+    evt.preventDefault();
+  });
+
   window.form = {
     editsForm: editsForm,
-    form: form
+    form: form,
+    map: map,
+    mainPin: mainPin
   };
 })();
