@@ -74,62 +74,54 @@
   /** */
   var roomNumberInput = form.querySelector('#room_number');
   var capacityInput = form.querySelector('#capacity');
-  // var capacityArr = capacityInput.querySelectorAll('option');
+  var capacityArr = capacityInput.querySelectorAll('option');
   /*
   var guestsValueDict = {
-    '1' : '1',
-    '2' : '2',
-    '3' : '3',
-    '100' : '0'
+    '1': '1',
+    '2': '2',
+    '3': '3',
+    '100': '0'
   };
   var guestsAvailableDict = {
-    '1' : '1',
-    '2' : ['1', '2'],
-    '3' : ['1', '2', '3'],
-    '100' : '0'
+    '1': ['1'],
+    '2': ['1', '2'],
+    '3': ['1', '2', '3'],
+    '100': ['0']
   };
   roomNumberInput.onchange = function (room) {
     capacityInput.value = guestsValueDict[room]
   }
-
   if(guestsAvailableDict[room].indexOf(parseInt(it.value, 10) === -1) {
     it.setAttribute('disabled', '');
   })
   */
-  // var guestsValueDict = {
-  //   '1': '1',
-  //   '2': '2',
-  //   '3': '3',
-  //   '100': '0'
-  // };
-  // var guestsAvailableDict = {
-  //   '1': '1',
-  //   '2': ['1', '2'],
-  //   '3': ['1', '2', '3'],
-  //   '100': '0'
-  // };
-
-
-  // // capacityArr.forEach(function (it) {
-  // //   if (guestsAvailableDict[room].indexOf(parseInt(it.value, 10)) === -1) {
-  // //     it.setAttribute('disabled', '');
-  // //   }
-  // // });
-  // roomNumberInput.onchange = function (room) {
-  //   capacityInput.value = guestsValueDict[room];
-
-  //   capacityArr.forEach(function (it) {
-  //     if (guestsAvailableDict[room].indexOf(parseInt(it.value, 10)) === -1) {
-  //       it.setAttribute('disabled', '');
-  //     }
-  //   });
-  // };
-
-  roomNumberInput.onchange = function () {
-    capacityInput.value = roomNumberInput.value;
+  var guestsValueDict = {
+    '1': '1',
+    '2': '2',
+    '3': '3',
+    '100': '0'
   };
-
-
+  var guestsAvailableDict = {
+    '1': ['1'],
+    '2': ['1', '2'],
+    '3': ['1', '2', '3'],
+    '100': ['0']
+  };
+  roomNumberInput.onchange = function (room) {
+    capacityInput.value = guestsValueDict[room]; /* - такой вариант Не работает: при переключении кол-во комнат, кол-во гостей не изменяется, оно вообще пустым становится */
+    capacityInput.value = guestsValueDict[roomNumberInput.value]; /* - этот вариант Работает и переключает, и параметр (room) в функции указывать нет смысла */
+    // допустим если оставить вариант №2, дальнейшие мои действия опять мимио(( По идее я должен перебрать массив option у capacityInput, взять у каждого value и сравнить с чем-то
+    capacityArr.forEach(function (it) {
+      // console.log(guestsAvailableDict[room].indexOf(parseInt(it.value, 10))); /* - выдает ошибку */
+      // if (guestsAvailableDict[room].indexOf(parseInt(it.value, 10)) === -1) {
+      //   it.setAttribute('disabled', '');
+      // } /* - выдает ошибку */
+      console.log(guestsAvailableDict[roomNumberInput.value].indexOf(parseInt(it.value, 10))); /* - выдает 4 раза значение: -1 */
+      if (guestsAvailableDict[roomNumberInput.value].indexOf(parseInt(it.value, 10)) === -1) {
+        it.setAttribute('disabled', '');
+      } /* - тогда все условие отрабатывает в одном сценарии все значения равны -1 и все option у capacityInput получают setAttribute('disabled', '')*/
+    });
+  };
   //   capacityArr.forEach(function (it) {
   //     it.setAttribute('disabled', '');
   //     if (parseInt(it.value, 10) <= parseInt(roomNumberInput.value, 10) && parseInt(it.value, 10) !== 0) {
